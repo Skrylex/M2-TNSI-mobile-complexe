@@ -3,14 +3,25 @@ import 'package:flutterapp/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/webservice.dart';
 
-class PokedexView extends State<MyHomePage> {
+class PokedexView extends StatefulWidget {
+  @override
+  _PodekexState createState() => _PodekexState();
+}
+
+class _PodekexState extends State<PokedexView> {
   Future<Pokedex> pokedex;
 
   @override
   void initState() {
-    this.pokedex = WebService.getAllPokedex();
-  }
+    super.initState();
 
+    WebService.createOrderPokedex().then((result) {
+      print(result);
+      setState(() {
+
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
