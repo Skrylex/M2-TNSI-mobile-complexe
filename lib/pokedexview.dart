@@ -56,17 +56,21 @@ class _PokedexState extends State<PokedexView> {
             childAspectRatio: 1.3,
             children: snapshot.data.pokemonsList.map((Pokemon pok) {
               return new GestureDetector(
-                onDoubleTap: () {
+                onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PokemonView()),
+                    MaterialPageRoute(builder: (context) => PokemonView.pok(pokemon: pok)),
                   );
                 },
                 child: Card(
                     child : Column(
                       children: <Widget>[
                         Text(pok.name),
-                        Image(image: AssetImage('images/pokeball.png'))
+                        Flexible(
+                          child :
+                          Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png")
+                          //Image(image: AssetImage('images/pokeball.png'))
+                        )
                         //Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png")
                       ],
                     )

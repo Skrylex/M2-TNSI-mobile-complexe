@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
 				scrollDirection: Axis.horizontal,
 				// Center is a layout widget. It takes a single child and positions it
 				children: <Widget>[
-					RaisedButton(
+					/*RaisedButton(
 						child: Text('Go to Pokemon'),
 						onPressed: () {
 							Navigator.push(
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 								MaterialPageRoute(builder: (context) => PokemonView()),
 							);
 						},
-					),
+					),*/
 					RaisedButton(
 						child: Text('Go to Pokedex'),
 						onPressed: () {
