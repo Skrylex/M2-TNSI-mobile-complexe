@@ -14,10 +14,7 @@ class _PokedexState extends State<PokedexView> {
   void initState() {
     super.initState();
   }
-
-  Pokedex pokedex = new Pokedex();
-
-  @override
+  /*@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -35,6 +32,35 @@ class _PokedexState extends State<PokedexView> {
         },
         itemCount: pokedex.pokemons.length,
       )
+    );
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pokedex"),
+      ),
+      body: new FutureBuilder<Pokedex>(
+        future: WebService.fetchPokedex(),
+        builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
+          if (!snapshot.hasData) return new Card();
+          print(snapshot.data);
+          Map content = snapshot.data as Map;
+          List<Pokemon> lista = new List<Pokemon>();
+          content.forEach((index, pok) {
+            print(pok);
+            //lista.add(_pokemon);
+          });
+          return new GridView.count(
+            crossAxisCount: 3,
+            childAspectRatio: 1.3,
+            children: lista.map((Pokemon pok) {
+              return new Card(/*pok: pok*/);
+            }).toList(),
+          );
+        },
+      ),
     );
   }
 }

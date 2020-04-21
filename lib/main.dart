@@ -48,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-	Pokedex pokedex = new Pokedex();
+
 	@override
 	Widget build(BuildContext context) {
 		// This method is rerun every time setState is called, for instance as done
@@ -81,7 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
 					RaisedButton(
 						child: Text('Go to Pokedex'),
 						onPressed: () {
-							pokedex.populatePokedex();
 							Navigator.push(
 								context,
 								MaterialPageRoute(builder: (context) => PokedexView()),

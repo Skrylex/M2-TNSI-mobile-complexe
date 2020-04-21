@@ -7,45 +7,55 @@ import 'package:flutterapp/webservice.dart';
 
 @JsonSerializable()
 class Pokedex{
-  List<Pokemon> pokemons = new List<Pokemon>();
+  List<Pokemon> pokemonsList = new List<Pokemon>();
 
-  Pokedex(){
-    populatePokedex();
+  Pokedex.factory({pokemons}){
+    for(var pok in pokemons){
+      Pokemon p = new Pokemon(pok['entry_number'], pok['pokemon_species']['name'], '');
+      this.pokemonsList.add(p);
+    }
   }
 
-  void populatePokedex(){
+  factory Pokedex.fromJson(Map<dynamic, dynamic> json) {
+    print(json['pokemon_entries'].runtimeType);
+    return Pokedex.factory(
+      pokemons: json['pokemon_entries']
+    );
+  }
+
+  /*void populatePokedex(){
     final myFuture = WebService.getPokemons();
     myFuture.then((resp) {
       getPokemonsFromJson(resp);
     });
-  }
+  }*/
 
-  void getPokemonsFromJson(Map<String, dynamic> s){
+  /*void getPokemonsFromJson(Map<dynamic, dynamic> s){
     //print(s['pokemon_entries'][0]);
-    for(Map<String, dynamic> pokemon in s['pokemon_entries']){
+    for(Map<dynamic, dynamic> pokemon in s['pokemon_entries']){
       var id = pokemon['entry_number'];
       var name = pokemon['pokemon_species']['name'];
       final myFuture = WebService.getPokemon(id);
       myFuture.then((resp) {
-        //print(resp);
-        var sprites = resp['sprites']['front_shiny'];
-        var types = resp['types'];
-        var abilities = resp['abilities'];
-        pokemons.add(new Pokemon(id, name, sprites));
+        print(resp);
+        pokemons.add(new Pokemon.fromJson(resp));
       });
     }
-  }
+  }*/
 
   Pokemon getPokemonById(id) {
-    for(Pokemon p in pokemons) {
+    for(Pokemon p in pokemonsList) {
       if (p.id == id) return p;
     }
   }
 
+  Future<List<Pokemon>> getFuturePokemons() async {
+    return Future.sync(() => pokemonsList);
+  }
 
   @override
   String toString() {
-    print(this.pokemons);
-    return 'Pokedex{pokemons: $pokemons}';
+    print(this.pokemonsList);
+    return 'Pokedex{pokemons: $pokemonsList}';
   }
 }

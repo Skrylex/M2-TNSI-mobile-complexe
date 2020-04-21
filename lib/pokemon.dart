@@ -11,6 +11,15 @@ class Pokemon {
 
 	Pokemon(this.id, this.name, this.sprite);
 
+	Pokemon.factory({this.id, this.name, this.sprite, this.types, this.abilities});
+
+	factory Pokemon.fromJson(Map<dynamic, dynamic> json) {
+		return Pokemon.factory(
+			id: json['id'],
+			name: json['name'],
+			sprite: json['sprites']['front_shiny'],
+		);
+	}
 
 	@override
 	String toString() {
