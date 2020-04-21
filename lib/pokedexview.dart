@@ -28,7 +28,7 @@ class _PokedexState extends State<PokedexView> {
         itemBuilder: (BuildContext context, int index) {
           Pokemon pokemon = pokedex.getPokemonById(index + 1);
           return Card(
-            child: (pokemon.sprite != null) ? Image.network(pokemon.sprite.toString()) : Text("Aucune Image"),
+            child: (pokemon.sprite != null) ? Image.network(pokemon.sprite.toString()) : Image(image: AssetImage('images/pokeball.png')),
           );
         },
         itemCount: pokedex.pokemons.length,
