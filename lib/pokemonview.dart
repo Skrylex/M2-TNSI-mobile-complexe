@@ -36,12 +36,12 @@ class _PokemonState extends State<PokemonView> {
 			body: GridView.count(
 				// Create a grid with 2 columns. If you change the scrollDirection to
 				// horizontal, this produces 2 rows.
-				crossAxisCount: 2,
+				crossAxisCount: 3,
 				scrollDirection: Axis.horizontal,
 				// Generate 100 widgets that display their index in the List.
 				children: <Widget>[
 					Text(pokemon),
-					//Image.network('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png'),
+					Image.network('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+id.toString()+'.png'),
 					RaisedButton(
 						onPressed: () async {
 							var test = await WebService.getPokemon(id);
