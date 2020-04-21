@@ -6,16 +6,11 @@ class Pokemon {
 	int id;
 	String name;
 	String sprite;
+	List<String> types = new List<String>();
+	List<String> abilities = new List<String>();
 
-	Pokemon({this.id, this.name, this.sprite});
+	Pokemon(this.id, this.name, this.sprite);
 
-	factory Pokemon.fromJson(Map<String, dynamic> json) {
-		return Pokemon(
-			id: json['id'],
-			name: json['pokemon_entries']['pokemon_species']['name'],
-			sprite: null,
-		);
-	}
 
 	@override
 	String toString() {

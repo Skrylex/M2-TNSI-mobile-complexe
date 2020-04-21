@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pokedex.dart';
+import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokedexview.dart';
 import 'package:flutterapp/pokemonview.dart';
 
@@ -47,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+	Pokedex pokedex = new Pokedex();
 	@override
 	Widget build(BuildContext context) {
 		// This method is rerun every time setState is called, for instance as done
@@ -62,18 +63,32 @@ class _MyHomePageState extends State<MyHomePage> {
 				// the App.build method, and use it to set our appbar title.
 				title: Text(widget.title),
 			),
-			body: Center(
+			body: GridView.count(
+				crossAxisCount: 2,
+				scrollDirection: Axis.horizontal,
 				// Center is a layout widget. It takes a single child and positions it
-				child: RaisedButton(
-					child: Text('Go to Pokedex'),
-					onPressed: () {
-						Navigator.push(
-							context,
+				children: <Widget>[
+					RaisedButton(
+						child: Text('Go to Pokemon'),
+						onPressed: () {
+							Navigator.push(
+								context,
 							//MaterialPageRoute(builder: (context) => PokedexView()),
-							MaterialPageRoute(builder: (context) => PokemonView()),
-						);
-					},
-				),
+								MaterialPageRoute(builder: (context) => PokemonView()),
+							);
+						},
+					),
+					RaisedButton(
+						child: Text('Go to Pokedex'),
+						onPressed: () {
+							pokedex.populatePokedex();
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => PokedexView()),
+							);
+						},
+					),
+				]
 			),
 		);
 	}
