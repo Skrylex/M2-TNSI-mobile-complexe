@@ -17,7 +17,6 @@ class Pokedex{
   }
 
   factory Pokedex.fromJson(Map<dynamic, dynamic> json) {
-    print(json['pokemon_entries'].runtimeType);
     return Pokedex.factory(
       pokemons: json['pokemon_entries']
     );
