@@ -39,26 +39,27 @@ class _PokedexState extends State<PokedexView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pokedex"),
+        title: Text("Pokeflex"),
       ),
       body: new FutureBuilder<Pokedex>(
         future: WebService.fetchPokedex(),
-        builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
-          if (!snapshot.hasData) return new Card();
-          print(snapshot.data);
-          Map content = snapshot.data as Map;
-          List<Pokemon> lista = new List<Pokemon>();
-          content.forEach((index, pok) {
-            print(pok);
-            //lista.add(_pokemon);
-          });
-          return new GridView.count(
-            crossAxisCount: 3,
-            childAspectRatio: 1.3,
-            children: lista.map((Pokemon pok) {
-              return new Card(/*pok: pok*/);
-            }).toList(),
-          );
+        // ignore: missing_return
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+            return new GridView.count(
+              crossAxisCount: 3,
+              childAspectRatio: 1.3,
+              children: snapshot.data.pokemonsList.map((Pokemon pok) {
+                return new Card(
+                  child: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png"),
+                );
+              }).toList(),
+            );
+          } else {
+            return new Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         },
       ),
     );

@@ -10,14 +10,12 @@ class Pokedex{
   List<Pokemon> pokemonsList = new List<Pokemon>();
 
   Pokedex.factory({pokemons}){
-    for(var pok in pokemons){
-      Pokemon p = new Pokemon(pok['entry_number'], pok['pokemon_species']['name'], '');
-      this.pokemonsList.add(p);
+    for(var s in pokemons) {
+      this.pokemonsList.add(new Pokemon(s['entry_number'], s['pokemon_species']['name'], ''));
     }
   }
 
   factory Pokedex.fromJson(Map<dynamic, dynamic> json) {
-    print(json['pokemon_entries'].runtimeType);
     return Pokedex.factory(
       pokemons: json['pokemon_entries']
     );
@@ -52,6 +50,7 @@ class Pokedex{
   Future<List<Pokemon>> getFuturePokemons() async {
     return Future.sync(() => pokemonsList);
   }
+
 
   @override
   String toString() {
