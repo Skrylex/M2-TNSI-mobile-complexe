@@ -21,11 +21,10 @@ class Pokedex{
   }
 
   void getPokemonsFromJson(Map<String, dynamic> s){
-    //print(s);
     //print(s['pokemon_entries'][0]);
     for(Map<String, dynamic> pokemon in s['pokemon_entries']){
-      var id = pokemon[0]['entry_number'];
-      var name = pokemon[0]['pokemon_species']['name'];
+      var id = pokemon['entry_number'];
+      var name = pokemon['pokemon_species']['name'];
       final myFuture = WebService.getPokemon(id);
       myFuture.then((resp) {
         //print(resp);
@@ -37,6 +36,11 @@ class Pokedex{
     }
   }
 
+  Pokemon getPokemonById(id) {
+    for(Pokemon p in pokemons) {
+      if (p.id == id) return p;
+    }
+  }
 
 
   @override
