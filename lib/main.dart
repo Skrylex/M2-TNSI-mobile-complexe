@@ -63,22 +63,25 @@ class _MyHomePageState extends State<MyHomePage> {
 				// the App.build method, and use it to set our appbar title.
 				title: Text(widget.title),
 			),
-			body: Column(
-				crossAxisAlignment: CrossAxisAlignment.center,
-				children: <Widget>[
-					Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
-					Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
-					RaisedButton(
-						padding: const EdgeInsets.all(32),
-						child: Text('Go to Pokedex'),
-						onPressed: () {
-							Navigator.push(
-								context,
-								MaterialPageRoute(builder: (context) => PokedexView()),
-							);
-						},
-					),
-				],
+			body: Center(
+				child :
+				Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					crossAxisAlignment: CrossAxisAlignment.center,
+					children: <Widget>[
+						Flexible(child:Image(image: AssetImage('images/logo_title.png'))),
+						Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
+						RaisedButton(
+							child: Text('Go to Pokedex'),
+							onPressed: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => PokedexView()),
+								);
+							},
+						),
+					],
+				)
 			)
 		);
 	}
