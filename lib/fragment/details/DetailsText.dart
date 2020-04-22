@@ -35,6 +35,7 @@ class _DetailsTextState extends State<DetailsText>{
 							pokemon.infos = snapshot.data;
 							return Text(pokemon.infos);
 						} else if (snapshot.hasError) {
+							//TODO return to pokedex with toast error
 							return Text("${snapshot.error}");
 						}
 						// By default, show a loading spinner.

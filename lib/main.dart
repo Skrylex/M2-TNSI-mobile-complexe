@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return MaterialApp(
-			title: 'Flutter Demo',
+			title: 'PokeFlex',
 			theme: ThemeData(
 				// This is the theme of your application.
 				//
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 				// is not restarted.
 				primarySwatch: Colors.blue,
 			),
-			home: MyHomePage(title: 'Accueil'),
+			home: MyHomePage(title: 'PokeHome'),
 		);
 	}
 }
@@ -63,22 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
 				// the App.build method, and use it to set our appbar title.
 				title: Text(widget.title),
 			),
-			body: GridView.count(
-				crossAxisCount: 2,
-				scrollDirection: Axis.horizontal,
-				// Center is a layout widget. It takes a single child and positions it
+			body: Column(
+				crossAxisAlignment: CrossAxisAlignment.center,
 				children: <Widget>[
-					/*RaisedButton(
-						child: Text('Go to Pokemon'),
-						onPressed: () {
-							Navigator.push(
-								context,
-							//MaterialPageRoute(builder: (context) => PokedexView()),
-								MaterialPageRoute(builder: (context) => PokemonView()),
-							);
-						},
-					),*/
+					Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
+					Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
 					RaisedButton(
+						padding: const EdgeInsets.all(32),
 						child: Text('Go to Pokedex'),
 						onPressed: () {
 							Navigator.push(
@@ -87,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
 							);
 						},
 					),
-				]
-			),
+				],
+			)
 		);
 	}
 }
