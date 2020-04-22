@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 import 'package:flutterapp/pokemon.dart';
-import 'package:flutterapp/webservice.dart';
 
 
 @JsonSerializable()
@@ -42,11 +39,11 @@ class Pokedex{
     }
   }*/
 
-  Pokemon getPokemonById(id) {
+  /*Pokemon getPokemonById(id) {
     for(Pokemon p in pokemonsList) {
       if (p.id == id) return p;
     }
-  }
+  }*/
 
   Future<List<Pokemon>> getFuturePokemons() async {
     return Future.sync(() => pokemonsList);

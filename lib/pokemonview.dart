@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/fragment/details/DetailsText.dart';
+import 'package:flutterapp/fragment/details/DetailsTitle.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutter/foundation.dart';
 
@@ -33,19 +35,33 @@ class _PokemonState extends State<PokemonView> {
 			appBar: AppBar(
 				title: Text(widget.title),
 			),
-			body: Card(
-				child : Center(
-					child : Column(
-						children: <Widget>[
-							Text(widget.pokemon.name),
-							Flexible(
-								child :
-								Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png")
-								// Image(image: AssetImage('images/pokeball.png')),
-							)
-						],
-					)
-				)
-			));
+			body: Column(
+				children: <Widget>[
+					Flexible(
+						child:
+							Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png",
+								height: 150,
+								fit:BoxFit.fill),
+		//Image(image: AssetImage('images/pokeball.png'))
+					),
+					DetailsTitle.pok(pokemon: pokemon),
+					DetailsText.pok(pokemon: pokemon)
+				],
+			)
+		);
+//			body: Container(
+//				child : Center(
+//					child : Column(
+//						children: <Widget>[
+//							Text(widget.pokemon.name),
+//							Flexible(
+//								child :
+//								Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png")
+//								// Image(image: AssetImage('images/pokeball.png')),
+//							)
+//						],
+//					)
+//				)
+//			)
 	}
 }

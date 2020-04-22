@@ -18,23 +18,32 @@ class WebService {
 	static Future<Pokemon> fetchPokemon(id) async {
 		var url = WebService.domain + "pokemon/" + id.toString();
 		var response = await http.get(url);
-		//return Future.sync(() => convert.jsonDecode(response.body).toString());
 		return Pokemon.fromJson(jsonDecode(response.body));
 	}
+
+	static Future<String> getInfosById(id) async {
+		var url = WebService.domain + "pokemon-species/"+id.toString();
+		var response = await http.get(url);
+		print(response.body);
+		return jsonDecode(response.body)['flavor_text_entries'][5]['flavor_text'];
+	}
+
+
+
 
 	static Future<Map<dynamic, dynamic>> getPokemons() async {
 		var url = WebService.domain + "pokedex/2";
 		var response = await http.get(url);
-		//print(response.body);
 		return Future.sync(() => jsonDecode(response.body));
 	}
 
 	static Future<Map<dynamic, dynamic>> getPokemon(id) async {
 		var url = WebService.domain + "pokemon/" + id.toString();
 		var response = await http.get(url);
-		//return Future.sync(() => convert.jsonDecode(response.body).toString());
 		return Future.sync(() => jsonDecode(response.body));
 	}
+
+
 
 
 //Fetch

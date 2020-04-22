@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/pokedex.dart';
-import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokedexview.dart';
-import 'package:flutterapp/pokemonview.dart';
+
+import 'pokemon.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,6 +47,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+	List<Pokemon> savedPokemon = new List<Pokemon>();
 
 	@override
 	Widget build(BuildContext context) {

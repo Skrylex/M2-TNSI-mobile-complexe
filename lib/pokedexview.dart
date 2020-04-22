@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/main.dart';
+import 'package:flutterapp/fragment/pokedex/PokemonCard.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
-import 'package:flutterapp/pokemonview.dart';
 import 'package:flutterapp/webservice.dart';
 
 class PokedexView extends StatefulWidget {
@@ -55,27 +54,7 @@ class _PokedexState extends State<PokedexView> {
             crossAxisCount: 3,
             childAspectRatio: 1.3,
             children: snapshot.data.pokemonsList.map((Pokemon pok) {
-              return new GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PokemonView.pok(pokemon: pok)),
-                  );
-                },
-                child: Card(
-                    child : Column(
-                      children: <Widget>[
-                        Text(pok.name),
-                        Flexible(
-                          child :
-                          Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png")
-                          //Image(image: AssetImage('images/pokeball.png'))
-                        )
-                        //Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png")
-                      ],
-                    )
-                )
-              );
+              return new PokemonCardView.pok(pokemon: pok);
             }).toList(),
           );
         },
