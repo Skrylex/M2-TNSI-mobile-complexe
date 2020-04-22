@@ -1,26 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../pokedex.dart';
 import '../../pokemon.dart';
 
 class DetailsTitle extends StatefulWidget{
-	final Pokemon pokemon;
-
-	const DetailsTitle.pok({Key key, @required this.pokemon}) : super(key: key);
+	final Pokedex pokedex;
+	final int id;
+	const DetailsTitle.pok({Key key, @required this.id, @required this.pokedex}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _DetailsTitleState(pokemon);
+  State<StatefulWidget> createState() => _DetailsTitleState(pokedex, id);
 }
 
 class _DetailsTitleState extends State<DetailsTitle>{
+	Pokedex pokedex;
 	Pokemon pokemon;
+	int id;
 
 	@override
 	void initState(){
 		super.initState();
 	}
 
-	_DetailsTitleState(Pokemon pok){this.pokemon = pok;}
+	_DetailsTitleState(Pokedex pok, int id ){
+		this.pokedex = pok;
+		this.id = id;
+		this.pokemon = pok.pokemonsList.elementAt(id-1);
+	}
 
   @override
   Widget build(BuildContext context) {

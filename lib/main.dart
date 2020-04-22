@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pokedexview.dart';
-
+import 'pokedex.dart';
 import 'pokemon.dart';
+import 'webservice.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
 				primarySwatch: Colors.blue,
 			),
 			home: MyHomePage(title: 'PokeHome'),
+
 		);
 	}
 }
@@ -48,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 	List<Pokemon> savedPokemon = new List<Pokemon>();
+	Pokedex pokedex = new Pokedex();
 
 	@override
 	Widget build(BuildContext context) {
@@ -71,18 +74,49 @@ class _MyHomePageState extends State<MyHomePage> {
 					children: <Widget>[
 						Flexible(child:Image(image: AssetImage('images/logo_title.png'))),
 						Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
-						RaisedButton(
-							child: Text('Go to Pokedex'),
-							onPressed: () {
-								Navigator.push(
-									context,
-									MaterialPageRoute(builder: (context) => PokedexView()),
-								);
-							},
-						),
+						initPokedex(),
 					],
 				)
 			)
 		);
 	}
+	Widget initPokedex(){
+		if(pokedex.pokemonsList.isNotEmpty){
+			print("LEPOKEDEX EST PLEIN");
+			print(pokedex.pokemonsList.isEmpty);
+			return RaisedButton(
+				child: Text('Go to Pokedex'),
+				onPressed: () {
+					Navigator.push(
+						context,
+						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
+					);
+				},
+			);
+		}else{
+			return FutureBuilder<Pokedex>(
+				future: WebService.fetchPokedex(),
+				builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
+					if (!snapshot.hasData){
+						return new Center(child : new CircularProgressIndicator());
+					}
+					pokedex = new Pokedex.list(snapshot.data.pokemonsList);
+					print("-----");
+					print(pokedex);
+					print("-----");
+					return RaisedButton(
+						child: Text('Go to Pokedex'),
+						onPressed: () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
+							);
+						},
+					);
+				},
+			);
+		}
+	}
+
+
 }

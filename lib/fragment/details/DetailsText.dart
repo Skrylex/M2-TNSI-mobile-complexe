@@ -42,7 +42,6 @@ class _DetailsTextState extends State<DetailsText>{
 						return CircularProgressIndicator();
 					},
 				)
-
 			);
 		}else{
 			return Container(
