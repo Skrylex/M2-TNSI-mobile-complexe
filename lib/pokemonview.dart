@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/main.dart';
-import 'package:flutterapp/pokedex.dart';
+import 'package:flutterapp/fragment/details/DetailsText.dart';
+import 'package:flutterapp/fragment/details/DetailsTitle.dart';
 import 'package:flutterapp/pokemon.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutterapp/webservice.dart';
 import 'package:flutter/foundation.dart';
-import 'dart:convert' as convert;
-
-
 
 class PokemonView extends StatefulWidget {
 
 	final String title = "Détails Pokemon";
+	final Pokemon pokemon;
+
+  const PokemonView.pok({Key key, @required this.pokemon}) : super(key: key);
+
 	@override
-	_PokemonState createState() => _PokemonState();
+	_PokemonState createState() => _PokemonState(pokemon);
 }
 
 class _PokemonState extends State<PokemonView> {
-	String pokemon;
+
+	Pokemon pokemon;
 	int id = 1;
+
+	_PokemonState(Pokemon pok){
+		this.pokemon = pok;
+	}
+
 	@override
 	void initState() {
 		super.initState();
-		pokemon = "Click Me !";
-
-		//WebService.getPokemon(1);
 	}
 
 	@override
@@ -33,36 +35,33 @@ class _PokemonState extends State<PokemonView> {
 			appBar: AppBar(
 				title: Text(widget.title),
 			),
-			body: GridView.count(
-				// Create a grid with 2 columns. If you change the scrollDirection to
-				// horizontal, this produces 2 rows.
-				crossAxisCount: 3,
-				scrollDirection: Axis.horizontal,
-				// Generate 100 widgets that display their index in the List.
+			body: Column(
 				children: <Widget>[
-					Text(pokemon),
-					Image.network('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+id.toString()+'.png'),
-					RaisedButton(
-						onPressed: () async {
-							var test = await WebService.getPokemon(id);
-							/*setState(() {
-							  setPokemon();
-							});*/
-
-						},
-						child: Text('Clicked '+id.toString()+' times'),
-					)
-				]
-			));
-	}
-
-	void setPokemon(){
-		final myFuture = WebService.getPokemon(id);
-		myFuture.then((resp) {
-			setState(() {
-				pokemon = resp[''];
-			});
-		});
-		id+=1;
+					Flexible(
+						child:
+							Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png",
+								height: 150,
+								fit:BoxFit.fill),
+		//Image(image: AssetImage('images/pokeball.png'))
+					),
+					DetailsTitle.pok(pokemon: pokemon),
+					DetailsText.pok(pokemon: pokemon)
+				],
+			)
+		);
+//			body: Container(
+//				child : Center(
+//					child : Column(
+//						children: <Widget>[
+//							Text(widget.pokemon.name),
+//							Flexible(
+//								child :
+//								Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png")
+//								// Image(image: AssetImage('images/pokeball.png')),
+//							)
+//						],
+//					)
+//				)
+//			)
 	}
 }

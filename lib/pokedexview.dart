@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/main.dart';
+import 'package:flutterapp/fragment/pokedex/PokemonCard.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutterapp/webservice.dart';
@@ -39,27 +39,24 @@ class _PokedexState extends State<PokedexView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pokeflex"),
+        title: Text("Pokedex"),
       ),
       body: new FutureBuilder<Pokedex>(
         future: WebService.fetchPokedex(),
-        // ignore: missing_return
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-            return new GridView.count(
-              crossAxisCount: 3,
-              childAspectRatio: 1.3,
-              children: snapshot.data.pokemonsList.map((Pokemon pok) {
-                return new Card(
-                  child: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png"),
-                );
-              }).toList(),
-            );
-          } else {
-            return new Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+        builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
+          if (!snapshot.hasData) return new Center(child : new CircularProgressIndicator());
+//          Map content = Map.fromIterable(snapshot.data.pokemonsList);
+//          List<Pokemon> lista = new List<Pokemon>();
+//          content.forEach((index, pok) {
+//            lista.add(pok);
+//          });
+          return new GridView.count(
+            crossAxisCount: 3,
+            childAspectRatio: 1.3,
+            children: snapshot.data.pokemonsList.map((Pokemon pok) {
+              return new PokemonCardView.pok(pokemon: pok);
+            }).toList(),
+          );
         },
       ),
     );

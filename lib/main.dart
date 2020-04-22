@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/pokedex.dart';
-import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokedexview.dart';
-import 'package:flutterapp/pokemonview.dart';
+
+import 'pokemon.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return MaterialApp(
-			title: 'Flutter Demo',
+			title: 'PokeFlex',
 			theme: ThemeData(
 				// This is the theme of your application.
 				//
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
 				// is not restarted.
 				primarySwatch: Colors.blue,
 			),
-			home: MyHomePage(title: 'Accueil'),
+			home: MyHomePage(title: 'PokeHome'),
 		);
 	}
 }
@@ -48,6 +47,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+	List<Pokemon> savedPokemon = new List<Pokemon>();
 
 	@override
 	Widget build(BuildContext context) {
@@ -63,32 +63,26 @@ class _MyHomePageState extends State<MyHomePage> {
 				// the App.build method, and use it to set our appbar title.
 				title: Text(widget.title),
 			),
-			body: GridView.count(
-				crossAxisCount: 2,
-				scrollDirection: Axis.horizontal,
-				// Center is a layout widget. It takes a single child and positions it
-				children: <Widget>[
-					RaisedButton(
-						child: Text('Go to Pokemon'),
-						onPressed: () {
-							Navigator.push(
-								context,
-							//MaterialPageRoute(builder: (context) => PokedexView()),
-								MaterialPageRoute(builder: (context) => PokemonView()),
-							);
-						},
-					),
-					RaisedButton(
-						child: Text('Go to Pokedex'),
-						onPressed: () {
-							Navigator.push(
-								context,
-								MaterialPageRoute(builder: (context) => PokedexView()),
-							);
-						},
-					),
-				]
-			),
+			body: Center(
+				child :
+				Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					crossAxisAlignment: CrossAxisAlignment.center,
+					children: <Widget>[
+						Flexible(child:Image(image: AssetImage('images/logo_title.png'))),
+						Flexible(child:Image(image: AssetImage('images/pokeball.png'))),
+						RaisedButton(
+							child: Text('Go to Pokedex'),
+							onPressed: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => PokedexView()),
+								);
+							},
+						),
+					],
+				)
+			)
 		);
 	}
 }
