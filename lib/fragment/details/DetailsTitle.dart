@@ -73,8 +73,8 @@ class _DetailsTitleState extends State<DetailsTitle>{
 									if(pokemon.saved) { // REMOVE
 										pokemon.saved = false;
 										globals.savedPokemon.remove(pokemon);
-									} else{ // ADD IF TEAM INF. 6
-										if (globals.counter.value < 6) {
+									} else{ // ADD IF TEAM INF. 6 (Limit define in globals)
+                    if (globals.counter.value < globals.LimiteTeam) {
 											pokemon.saved = true;
 											globals.savedPokemon.add(pokemon);
 										} else {

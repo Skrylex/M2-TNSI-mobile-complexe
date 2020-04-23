@@ -16,6 +16,10 @@
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
+/// * Entypo, Copyright (C) 2012 by Daniel Bruce
+///         Author:    Daniel Bruce
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://www.entypo.com
 ///
 import 'package:flutter/widgets.dart';
 
@@ -27,5 +31,6 @@ class PokeflexIcon {
 
   static const IconData heart = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData heart_empty = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData trash_1 = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pokeball = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
