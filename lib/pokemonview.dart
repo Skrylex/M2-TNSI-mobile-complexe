@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/details/DetailsText.dart';
 import 'package:flutterapp/fragment/details/DetailsTitle.dart';
+import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutter/foundation.dart';
 
 class PokemonView extends StatefulWidget {
 
 	final String title = "Détails Pokemon";
-	final Pokemon pokemon;
+	final Pokedex pokedex;
+	final int id;
 
-  const PokemonView.pok({Key key, @required this.pokemon}) : super(key: key);
+  const PokemonView.pok({Key key, @required this.id, @required this.pokedex}) : super(key: key);
 
 	@override
-	_PokemonState createState() => _PokemonState(pokemon);
+	_PokemonState createState() => _PokemonState(pokedex, id);
 }
 
 class _PokemonState extends State<PokemonView> {
-
+	Pokedex pokedex;
 	Pokemon pokemon;
-	int id = 1;
+	int id;
 
-	_PokemonState(Pokemon pok){
-		this.pokemon = pok;
+	_PokemonState(Pokedex pok, int id){
+		this.pokedex = pok;
+		this.id = id;
+		this.pokemon = pok.pokemonsList.elementAt(id-1);
 	}
 
 	@override
@@ -44,7 +48,7 @@ class _PokemonState extends State<PokemonView> {
 								fit:BoxFit.fill),
 		//Image(image: AssetImage('images/pokeball.png'))
 					),
-					DetailsTitle.pok(pokemon: pokemon),
+					DetailsTitle.pok(pokedex: pokedex, id:pokemon.id),
 					DetailsText.pok(pokemon: pokemon)
 				],
 			)

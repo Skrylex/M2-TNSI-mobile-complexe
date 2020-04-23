@@ -5,35 +5,21 @@ import 'package:flutterapp/pokemon.dart';
 import 'package:flutterapp/webservice.dart';
 
 class PokedexView extends StatefulWidget {
+  final Pokedex pokedex;
+
+  const PokedexView.pok({Key key, @required this.pokedex}) : super(key: key);
+
   @override
-  _PokedexState createState() => _PokedexState();
+  _PokedexState createState() => _PokedexState(pokedex);
 }
 
 class _PokedexState extends State<PokedexView> {
+  Pokedex pokedex;
+  _PokedexState(Pokedex pokedex){this.pokedex = pokedex;}
   @override
   void initState() {
     super.initState();
   }
-  /*@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Pokedex"),
-      ),
-      body: GridView.builder(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (BuildContext context, int index) {
-          Pokemon pokemon = pokedex.getPokemonById(index + 1);
-          return Card(
-            child: (pokemon.sprite != null) ? Image.network(pokemon.sprite.toString()) : Image(image: AssetImage('images/pokeball.png')),
-          );
-        },
-        itemCount: pokedex.pokemons.length,
-      )
-    );
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -41,24 +27,39 @@ class _PokedexState extends State<PokedexView> {
       appBar: AppBar(
         title: Text("Pokedex"),
       ),
-      body: new FutureBuilder<Pokedex>(
+      body: getPokedexWidget()
+    );
+  }
+
+  Widget getPokedexWidget(){
+    //print(pokedex);
+    if(pokedex?.pokemonsList?.isEmpty ?? true){
+      print("OK ON CALL l'API");
+      return FutureBuilder<Pokedex>(
         future: WebService.fetchPokedex(),
         builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
           if (!snapshot.hasData) return new Center(child : new CircularProgressIndicator());
-//          Map content = Map.fromIterable(snapshot.data.pokemonsList);
-//          List<Pokemon> lista = new List<Pokemon>();
-//          content.forEach((index, pok) {
-//            lista.add(pok);
-//          });
           return new GridView.count(
             crossAxisCount: 3,
             childAspectRatio: 1.3,
             children: snapshot.data.pokemonsList.map((Pokemon pok) {
-              return new PokemonCardView.pok(pokemon: pok);
+              print("***");
+              print(pokedex);
+              print("***");
+              return new PokemonCardView.id(id: pok.id, pokedex: pokedex);
             }).toList(),
           );
         },
-      ),
-    );
+      );
+    }else{
+      print("OK ON CALL PAS DU TOUT l'API");
+      return new GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1.3,
+        children: pokedex.pokemonsList.map((Pokemon pok) {
+          return new PokemonCardView.id(id: pok.id, pokedex: pokedex);
+        }).toList(),
+      );
+    }
   }
 }

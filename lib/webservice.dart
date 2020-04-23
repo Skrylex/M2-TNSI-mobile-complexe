@@ -24,7 +24,7 @@ class WebService {
 	static Future<String> getInfosById(id) async {
 		var url = WebService.domain + "pokemon-species/"+id.toString();
 		var response = await http.get(url);
-		print(response.body);
+		//print(response.body);
 		return jsonDecode(response.body)['flavor_text_entries'][5]['flavor_text'];
 	}
 

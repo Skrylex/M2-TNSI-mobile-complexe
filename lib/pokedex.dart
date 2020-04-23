@@ -6,9 +6,16 @@ import 'package:flutterapp/pokemon.dart';
 class Pokedex{
   List<Pokemon> pokemonsList = new List<Pokemon>();
 
+  Pokedex();
+
+  Pokedex.list(List<Pokemon> p){
+    this.pokemonsList = p;
+  }
+
   Pokedex.factory({pokemons}){
-    for(var s in pokemons) {
-      this.pokemonsList.add(new Pokemon(s['entry_number'], s['pokemon_species']['name'], ''));
+    for(var pok in pokemons){
+      Pokemon p = new Pokemon(pok['entry_number'], pok['pokemon_species']['name'], '');
+      this.pokemonsList.add(p);
     }
   }
 
@@ -38,20 +45,14 @@ class Pokedex{
     }
   }*/
 
-  /*Pokemon getPokemonById(id) {
-    for(Pokemon p in pokemonsList) {
-      if (p.id == id) return p;
-    }
-  }*/
-
   Future<List<Pokemon>> getFuturePokemons() async {
     return Future.sync(() => pokemonsList);
   }
 
 
+
   @override
   String toString() {
-    print(this.pokemonsList);
     return 'Pokedex{pokemons: $pokemonsList}';
   }
 }

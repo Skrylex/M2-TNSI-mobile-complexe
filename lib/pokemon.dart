@@ -11,7 +11,9 @@ class Pokemon {
 	bool saved = false;
 
 	Pokemon(this.id, this.name, this.sprite);
-
+	factory Pokemon.clone(Pokemon p){
+		return new Pokemon(p.id, p.name, p.sprite);
+	}
 	Pokemon.factory({this.id, this.name, this.sprite, this.infos, this.types, this.abilities});
   Pokemon.infos({this.infos});
 
@@ -31,6 +33,6 @@ class Pokemon {
 
 	@override
 	String toString() {
-		return 'Pokemon{id: $id, name: $name, sprite: $sprite}';
+		return 'Pokemon{id: $id, name: $name, isSaved: $saved}\n';
 	}
 }
