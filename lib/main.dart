@@ -30,6 +30,44 @@ class MyApp extends StatelessWidget {
 
 		);
 	}
+
+	static Widget layoutAppBar(_title, _pokedex) {
+		return AppBar(
+			// Here we take the value from the MyHomePage object that was created by
+			// the App.build method, and use it to set our appbar title.
+			title: Text(_title),
+			actions: <Widget>[
+				new Stack(
+					children: <Widget>[
+						new IconButton(icon: Icon(Icons.notifications), onPressed: null),
+						_pokedex.getPokemonTeamCount() != 0 ? new Positioned(
+							right: 11,
+							bottom: 11,
+							child: new Container(
+								padding: EdgeInsets.all(2),
+								decoration: new BoxDecoration(
+									color: Colors.red,
+									borderRadius: BorderRadius.circular(6),
+								),
+								constraints: BoxConstraints(
+									minWidth: 14,
+									minHeight: 14,
+								),
+								child: Text(
+									_pokedex.getPokemonTeamCount().toString(),
+									style: TextStyle(
+										color: Colors.white,
+										fontSize: 8,
+									),
+									textAlign: TextAlign.center,
+								),
+							),
+						) : new Container()
+					],
+				)
+			],
+		);
+	}
 }
 
 class MyHomePage extends StatefulWidget {
@@ -63,41 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
 		// fast, so that you can just rebuild anything that needs updating rather
 		// than having to individually change instances of widgets.
 		return Scaffold(
-			appBar: AppBar(
-				// Here we take the value from the MyHomePage object that was created by
-				// the App.build method, and use it to set our appbar title.
-				title: Text(widget.title),
-				actions: <Widget>[
-					new Stack(
-						children: <Widget>[
-							new IconButton(icon: Icon(Icons.notifications), onPressed: null),
-							pokedex.getPokemonTeamCount() != 0 ? new Positioned(
-								right: 11,
-								bottom: 11,
-								child: new Container(
-									padding: EdgeInsets.all(2),
-									decoration: new BoxDecoration(
-										color: Colors.red,
-										borderRadius: BorderRadius.circular(6),
-									),
-									constraints: BoxConstraints(
-										minWidth: 14,
-										minHeight: 14,
-									),
-									child: Text(
-										pokedex.getPokemonTeamCount().toString(),
-										style: TextStyle(
-											color: Colors.white,
-											fontSize: 8,
-										),
-										textAlign: TextAlign.center,
-									),
-								),
-							) : new Container()
-						],
-					)
-				],
-			),
+			appBar: MyApp.layoutAppBar(widget.title, pokedex),
 
 			body: Center(
 				child :
@@ -145,6 +149,4 @@ class _MyHomePageState extends State<MyHomePage> {
 			);
 		}
 	}
-
-
 }
