@@ -73,9 +73,29 @@ class _DetailsTitleState extends State<DetailsTitle>{
 									if(pokemon.saved) {
 										pokemon.saved = false;
 										globals.savedPokemon.remove(pokemon);
-									}else{
-										pokemon.saved = true;
-										globals.savedPokemon.add(pokemon);
+									} else{
+										if (globals.counter.value < 6) {
+											pokemon.saved = true;
+											globals.savedPokemon.add(pokemon);
+										} else {
+											showDialog(
+													context: context,
+													builder: (BuildContext context) {
+														return AlertDialog(
+															title: new Text("Équipe complète"),
+															content: new Text("Tu ne peux pas avoir plus de 6 pokémons dans ton équipe."),
+															actions: <Widget>[
+																new FlatButton(
+																		onPressed: () {
+																			Navigator.of(context).pop();
+																		},
+																		child: new Text("Fermer")
+																)
+															],
+														);
+													}
+											);
+										}
 									}
 									globals.counter.value = pokedex.getPokemonTeamCount();
 								});
