@@ -34,15 +34,18 @@ class _FavoriteState extends State<FavoriteView>{
 				itemBuilder: (context, index){
 					final pokemon = globals.savedPokemon.elementAt(index);
 
-					return ListTile(
-						title: GestureDetector(
-							onTap: () {
-								Navigator.push(
-									context,
-									MaterialPageRoute(builder: (context) => PokemonView.pok(pokedex: pokedex, id:pokemon.id)),
-								);
+					return Dismissible(
+						background: Container(color: Colors.red),
+						key : Key(pokemon.id.toString()),
+							onDismissed: (direction){
+								setState(() {
+									pokemon.saved = false;
+								  globals.savedPokemon.remove(pokemon);
+									globals.counter.value = pokedex.getPokemonTeamCount();
+								});
 							},
-							child : Row(
+							child : ListTile(
+								title: Row(
 								children: <Widget>[
 									Flexible(
 										child:
