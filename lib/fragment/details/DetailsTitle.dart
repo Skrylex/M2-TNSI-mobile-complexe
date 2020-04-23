@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/main.dart';
-
+import 'package:flutterapp/fragment/appbar/appbar.dart';
+import 'package:flutterapp/globals.dart' as globals;
 import '../../pokedex.dart';
 import '../../pokemon.dart';
 
@@ -71,7 +71,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 							onPressed: (){
 								setState(() {
 									pokemon.saved = !pokemon.saved;
-									MyHomePage.setPokemonCount();
+									globals.counter.value = pokedex.getPokemonTeamCount();
 								});
 							},
 						),

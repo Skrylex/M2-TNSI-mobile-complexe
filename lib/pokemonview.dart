@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/fragment/details/DetailsText.dart';
 import 'package:flutterapp/fragment/details/DetailsTitle.dart';
 import 'package:flutterapp/main.dart';
@@ -37,7 +38,7 @@ class _PokemonState extends State<PokemonView> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: MyHomePage.layoutAppBar("Détails Pokémon"),
+			appBar: AppBarView(title:"Détails Pokémon", pokedex: pokedex),
 			body: Column(
 				children: <Widget>[
 					Flexible(
@@ -52,19 +53,5 @@ class _PokemonState extends State<PokemonView> {
 				],
 			)
 		);
-//			body: Container(
-//				child : Center(
-//					child : Column(
-//						children: <Widget>[
-//							Text(widget.pokemon.name),
-//							Flexible(
-//								child :
-//								Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png")
-//								// Image(image: AssetImage('images/pokeball.png')),
-//							)
-//						],
-//					)
-//				)
-//			)
 	}
 }

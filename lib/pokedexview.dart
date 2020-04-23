@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/fragment/pokedex/PokemonCard.dart';
 import 'package:flutterapp/main.dart';
 import 'package:flutterapp/pokedex.dart';
@@ -25,7 +26,7 @@ class _PokedexState extends State<PokedexView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyHomePage.layoutAppBar("Pokeflex"),
+      appBar: AppBarView(title : "Pokeflex",pokedex: pokedex),
       body: getPokedexWidget()
     );
   }

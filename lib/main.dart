@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/pokedexview.dart';
 import 'pokedex.dart';
 import 'pokemon.dart';
 import 'webservice.dart';
-
+import 'package:flutterapp/globals.dart' as globals;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -26,88 +27,30 @@ class MyApp extends StatelessWidget {
 				// is not restarted.
 				primarySwatch: Colors.blue,
 			),
-			home: MyHomePage(title: 'PokeHome'),
+			home: MyHomePage(),
 		);
 	}
 
 }
 
 class MyHomePage extends StatefulWidget {
-	MyHomePage({Key key, this.title}) : super(key: key);
-
-	// This widget is the home page of your application. It is stateful, meaning
-	// that it has a State object (defined below) that contains fields that affect
-	// how it looks.
-
-	// This class is the configuration for the state. It holds the values (in this
-	// case the title) provided by the parent (in this case the App widget) and
-	// used by the build method of the State. Fields in a Widget subclass are
-	// always marked "final".
-
-	final String title;
-	static Pokedex pokedex = new Pokedex();
-	static int pokemonCount = 0;
-
+	MyHomePage({Key key}) : super(key: key);
+	final String title = "PokeFlex";
 	@override
 	_MyHomePageState createState() => _MyHomePageState();
 
-	static void setPokemonCount() {
-		pokemonCount = pokedex.getPokemonTeamCount();
-	}
-
-	static Widget layoutAppBar(_title) {
-		return AppBar(
-			// Here we take the value from the MyHomePage object that was created by
-			// the App.build method, and use it to set our appbar title.
-			title: Text(_title),
-			actions: <Widget>[
-				new Stack(
-					children: <Widget>[
-						new IconButton(icon: Icon(Icons.notifications), onPressed: null),
-						pokemonCount != 0 ? new Positioned(
-							right: 11,
-							bottom: 11,
-							child: new Container(
-								padding: EdgeInsets.all(2),
-								decoration: new BoxDecoration(
-									color: Colors.red,
-									borderRadius: BorderRadius.circular(6),
-								),
-								constraints: BoxConstraints(
-									minWidth: 14,
-									minHeight: 14,
-								),
-								child: Text(
-									pokemonCount.toString(),
-									style: TextStyle(
-										color: Colors.white,
-										fontSize: 8,
-									),
-									textAlign: TextAlign.center,
-								),
-							),
-						) : new Container()
-					],
-				)
-			],
-		);
-	}
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+	Pokedex pokedex = new Pokedex();
+
 	List<Pokemon> savedPokemon = new List<Pokemon>();
+	final ValueNotifier<int> _counter = ValueNotifier<int>(0);
 
 	@override
 	Widget build(BuildContext context) {
-		// This method is rerun every time setState is called, for instance as done
-		// by the _incrementCounter method above.
-		//
-		// The Flutter framework has been optimized to make rerunning build methods
-		// fast, so that you can just rebuild anything that needs updating rather
-		// than having to individually change instances of widgets.
 		return Scaffold(
-			appBar: MyHomePage.layoutAppBar(widget.title),
-
+			appBar: AppBarView(title: widget.title, pokedex: pokedex),
 			body: Center(
 				child :
 				Column(
@@ -124,13 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
 	}
 
 	Widget initPokedex(){
-		if(MyHomePage.pokedex.pokemonsList.isNotEmpty){
+		if(pokedex.pokemonsList.isNotEmpty){
 			return RaisedButton(
 				child: Text('Go to Pokedex'),
 				onPressed: () {
 					Navigator.push(
 						context,
-						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : MyHomePage.pokedex)),
+						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
 					);
 				},
 			);
@@ -141,13 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
 					if (!snapshot.hasData){
 						return new Center(child : new CircularProgressIndicator());
 					}
-					MyHomePage.pokedex = new Pokedex.list(snapshot.data.pokemonsList);
+					pokedex = new Pokedex.list(snapshot.data.pokemonsList);
 					return RaisedButton(
 						child: Text('Go to Pokedex'),
 						onPressed: () {
 							Navigator.push(
 								context,
-								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : MyHomePage.pokedex)),
+								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
 							);
 						},
 					);
