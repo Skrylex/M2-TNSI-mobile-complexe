@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/PokeflexIcon.dart';
+import 'package:flutterapp/pokeflex_icon_icons.dart';
 import 'package:flutterapp/globals.dart' as globals;
 import 'package:flutterapp/view/favoriteview.dart';
 

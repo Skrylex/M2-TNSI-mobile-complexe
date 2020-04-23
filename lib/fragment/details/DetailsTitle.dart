@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/fragment/appbar/appbar.dart';
+import 'package:flutterapp/pokeflex_icon_icons.dart';
 import 'package:flutterapp/globals.dart' as globals;
 import '../../pokedex.dart';
 import '../../pokemon.dart';
@@ -67,7 +67,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 						/*3*/
 						IconButton(
 							icon : Icon(
-								pokemon.saved ? Icons.star : Icons.star_border,
+								pokemon.saved ? PokeflexIcon.heart : PokeflexIcon.heart_empty,
 								color: pokemon.saved ? Colors.red[500] : null,
 							),
 							onPressed: (){
