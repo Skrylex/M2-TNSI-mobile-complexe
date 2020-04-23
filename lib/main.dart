@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pokedexview.dart';
 import 'pokedex.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return MaterialApp(
+			debugShowCheckedModeBanner: false,
 			title: 'PokeFlex',
 			theme: ThemeData(
 				// This is the theme of your application.
@@ -65,7 +67,38 @@ class _MyHomePageState extends State<MyHomePage> {
 				// Here we take the value from the MyHomePage object that was created by
 				// the App.build method, and use it to set our appbar title.
 				title: Text(widget.title),
+				actions: <Widget>[
+					new Stack(
+						children: <Widget>[
+							new IconButton(icon: Icon(Icons.notifications), onPressed: null),
+							pokedex.getPokemonTeamCount() != 0 ? new Positioned(
+								right: 11,
+								bottom: 11,
+								child: new Container(
+									padding: EdgeInsets.all(2),
+									decoration: new BoxDecoration(
+										color: Colors.red,
+										borderRadius: BorderRadius.circular(6),
+									),
+									constraints: BoxConstraints(
+										minWidth: 14,
+										minHeight: 14,
+									),
+									child: Text(
+										pokedex.getPokemonTeamCount().toString(),
+										style: TextStyle(
+											color: Colors.white,
+											fontSize: 8,
+										),
+										textAlign: TextAlign.center,
+									),
+								),
+							) : new Container()
+						],
+					)
+				],
 			),
+
 			body: Center(
 				child :
 				Column(

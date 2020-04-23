@@ -56,6 +56,14 @@ class Pokedex{
     return null;
   }
 
+  int getPokemonTeamCount() {
+    int counter = 0;
+    for (Pokemon pok in pokemonsList) {
+      if (pok.saved) counter++;
+    }
+    return counter;
+  }
+
 
   @override
   String toString() {
