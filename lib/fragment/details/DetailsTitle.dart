@@ -19,6 +19,8 @@ class _DetailsTitleState extends State<DetailsTitle>{
 	Pokemon pokemon;
 	int id;
 
+
+
 	@override
 	void initState(){
 		super.initState();
@@ -70,10 +72,10 @@ class _DetailsTitleState extends State<DetailsTitle>{
 							),
 							onPressed: (){
 								setState(() {
-									if(pokemon.saved) {
+									if(pokemon.saved) { // Remove
 										pokemon.saved = false;
 										globals.savedPokemon.remove(pokemon);
-									}else{
+									}else{ // Add
 										pokemon.saved = true;
 										globals.savedPokemon.add(pokemon);
 									}
