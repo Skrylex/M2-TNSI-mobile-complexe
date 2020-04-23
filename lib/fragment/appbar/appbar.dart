@@ -1,31 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/PokeflexIcon.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:flutterapp/view/favoriteview.dart';
 
 import '../../pokedex.dart';
 
 class AppBarView extends StatefulWidget implements PreferredSizeWidget{
 	final Pokedex pokedex;
 	final String title;
+	final IconData icon;
 	@override
 	final Size preferredSize;
-	AppBarView({Key key, @required this.title, @required this.pokedex}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
+	AppBarView({Key key, @required this.title, @required this.pokedex, this.icon}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
 
 	@override
-	State<StatefulWidget> createState() => AppBarState(pokedex, title);
+	State<StatefulWidget> createState() => AppBarState(pokedex, title, icon);
 
 }
 
 class AppBarState extends State<AppBarView>{
 	Pokedex pokedex;
 	String title;
+	IconData icon;
 	final ValueNotifier<int> _counter = ValueNotifier<int>(0);
 
 
-	AppBarState(Pokedex pokedex, String title){
+	AppBarState(Pokedex pokedex, String title, IconData icon){
 		this.title = title;
 		this.pokedex = pokedex;
 		_counter.value = pokedex.getPokemonTeamCount();
+		this.icon = icon;
 	}
 
 	@override
@@ -37,6 +42,7 @@ class AppBarState extends State<AppBarView>{
 	Widget build(BuildContext context) {
 		return AppBar(
 			title: Text(title),
+			//leading: Icon(icon),
 			actions: <Widget>[
 						ValueListenableBuilder(
 							builder: (BuildContext context, int value, Widget child) {
@@ -58,8 +64,13 @@ class AppBarState extends State<AppBarView>{
 
 	List<Widget> getIconNotification(value){
 		return <Widget>[
-			new IconButton(icon: Icon(Icons.notifications), onPressed: null),
-			globals.counter.value != 0 ? new Positioned(
+			new IconButton(icon: Icon(PokeflexIcon.pokeball), onPressed: () {
+				Navigator.push(
+					context,
+					MaterialPageRoute(builder: (context) => FavoriteView(pokedex : pokedex)),
+				);
+			}),
+			value != 0 ? new Positioned(
 				right: 11,
 				bottom: 11,
 				child: new Container(

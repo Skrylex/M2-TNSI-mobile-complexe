@@ -54,7 +54,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 										),
 									),
 									Text(
-										'Numéro de pokédex : '+pokemon.id.toString(),
+										'Numéro de pokédex : #'+pokemon.id.toString(),
 										style: TextStyle(
 											color: Colors.grey[500],
 										),
@@ -70,7 +70,13 @@ class _DetailsTitleState extends State<DetailsTitle>{
 							),
 							onPressed: (){
 								setState(() {
-									pokemon.saved = !pokemon.saved;
+									if(pokemon.saved) {
+										pokemon.saved = false;
+										globals.savedPokemon.remove(pokemon);
+									}else{
+										pokemon.saved = true;
+										globals.savedPokemon.add(pokemon);
+									}
 									globals.counter.value = pokedex.getPokemonTeamCount();
 								});
 							},

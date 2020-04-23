@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/fragment/pokedex/PokemonCard.dart';
-import 'package:flutterapp/main.dart';
+import 'package:flutterapp/view/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutterapp/webservice.dart';
@@ -26,7 +26,7 @@ class _PokedexState extends State<PokedexView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarView(title : "Pokeflex",pokedex: pokedex),
+      appBar: AppBarView(title : "PokeFlex",pokedex: pokedex, icon : Icons.collections_bookmark),
       body: getPokedexWidget()
     );
   }
@@ -34,7 +34,6 @@ class _PokedexState extends State<PokedexView> {
   Widget getPokedexWidget(){
     //print(pokedex);
     if(pokedex?.pokemonsList?.isEmpty ?? true){
-      print("OK ON CALL l'API");
       return FutureBuilder<Pokedex>(
         future: WebService.fetchPokedex(),
         builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
@@ -43,16 +42,12 @@ class _PokedexState extends State<PokedexView> {
             crossAxisCount: 3,
             childAspectRatio: 1.3,
             children: snapshot.data.pokemonsList.map((Pokemon pok) {
-              print("***");
-              print(pokedex);
-              print("***");
               return new PokemonCardView.id(id: pok.id, pokedex: pokedex);
             }).toList(),
           );
         },
       );
     }else{
-      print("OK ON CALL PAS DU TOUT l'API");
       return new GridView.count(
         crossAxisCount: 3,
         childAspectRatio: 1.3,

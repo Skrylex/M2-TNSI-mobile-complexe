@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/pokemon.dart';
 
 import '../../pokedex.dart';
-import '../../pokemonview.dart';
+import '../../view/pokemonview.dart';
 
 class PokemonCardView extends StatefulWidget{
   final int id;
