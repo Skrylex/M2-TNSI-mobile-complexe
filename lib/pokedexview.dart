@@ -25,7 +25,7 @@ class _PokedexState extends State<PokedexView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyApp.layoutAppBar("Pokeflex", this.pokedex),
+      appBar: MyHomePage.layoutAppBar("Pokeflex"),
       body: getPokedexWidget()
     );
   }

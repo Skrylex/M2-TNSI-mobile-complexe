@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/details/DetailsText.dart';
 import 'package:flutterapp/fragment/details/DetailsTitle.dart';
+import 'package:flutterapp/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutter/foundation.dart';
@@ -36,9 +37,7 @@ class _PokemonState extends State<PokemonView> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBar(
-				title: Text(widget.title),
-			),
+			appBar: MyHomePage.layoutAppBar("Détails Pokémon"),
 			body: Column(
 				children: <Widget>[
 					Flexible(

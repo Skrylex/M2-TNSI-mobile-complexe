@@ -27,47 +27,9 @@ class MyApp extends StatelessWidget {
 				primarySwatch: Colors.blue,
 			),
 			home: MyHomePage(title: 'PokeHome'),
-
 		);
 	}
 
-	static Widget layoutAppBar(_title, _pokedex) {
-		return AppBar(
-			// Here we take the value from the MyHomePage object that was created by
-			// the App.build method, and use it to set our appbar title.
-			title: Text(_title),
-			actions: <Widget>[
-				new Stack(
-					children: <Widget>[
-						new IconButton(icon: Icon(Icons.notifications), onPressed: null),
-						_pokedex.getPokemonTeamCount() != 0 ? new Positioned(
-							right: 11,
-							bottom: 11,
-							child: new Container(
-								padding: EdgeInsets.all(2),
-								decoration: new BoxDecoration(
-									color: Colors.red,
-									borderRadius: BorderRadius.circular(6),
-								),
-								constraints: BoxConstraints(
-									minWidth: 14,
-									minHeight: 14,
-								),
-								child: Text(
-									_pokedex.getPokemonTeamCount().toString(),
-									style: TextStyle(
-										color: Colors.white,
-										fontSize: 8,
-									),
-									textAlign: TextAlign.center,
-								),
-							),
-						) : new Container()
-					],
-				)
-			],
-		);
-	}
 }
 
 class MyHomePage extends StatefulWidget {
@@ -83,14 +45,57 @@ class MyHomePage extends StatefulWidget {
 	// always marked "final".
 
 	final String title;
+	static Pokedex pokedex = new Pokedex();
+	static int pokemonCount = 0;
 
 	@override
 	_MyHomePageState createState() => _MyHomePageState();
+
+	static void setPokemonCount() {
+		pokemonCount = pokedex.getPokemonTeamCount();
+	}
+
+	static Widget layoutAppBar(_title) {
+		return AppBar(
+			// Here we take the value from the MyHomePage object that was created by
+			// the App.build method, and use it to set our appbar title.
+			title: Text(_title),
+			actions: <Widget>[
+				new Stack(
+					children: <Widget>[
+						new IconButton(icon: Icon(Icons.notifications), onPressed: null),
+						pokemonCount != 0 ? new Positioned(
+							right: 11,
+							bottom: 11,
+							child: new Container(
+								padding: EdgeInsets.all(2),
+								decoration: new BoxDecoration(
+									color: Colors.red,
+									borderRadius: BorderRadius.circular(6),
+								),
+								constraints: BoxConstraints(
+									minWidth: 14,
+									minHeight: 14,
+								),
+								child: Text(
+									pokemonCount.toString(),
+									style: TextStyle(
+										color: Colors.white,
+										fontSize: 8,
+									),
+									textAlign: TextAlign.center,
+								),
+							),
+						) : new Container()
+					],
+				)
+			],
+		);
+	}
 }
 
 class _MyHomePageState extends State<MyHomePage> {
 	List<Pokemon> savedPokemon = new List<Pokemon>();
-	Pokedex pokedex = new Pokedex();
 
 	@override
 	Widget build(BuildContext context) {
@@ -101,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 		// fast, so that you can just rebuild anything that needs updating rather
 		// than having to individually change instances of widgets.
 		return Scaffold(
-			appBar: MyApp.layoutAppBar(widget.title, pokedex),
+			appBar: MyHomePage.layoutAppBar(widget.title),
 
 			body: Center(
 				child :
@@ -117,14 +122,15 @@ class _MyHomePageState extends State<MyHomePage> {
 			)
 		);
 	}
+
 	Widget initPokedex(){
-		if(pokedex.pokemonsList.isNotEmpty){
+		if(MyHomePage.pokedex.pokemonsList.isNotEmpty){
 			return RaisedButton(
 				child: Text('Go to Pokedex'),
 				onPressed: () {
 					Navigator.push(
 						context,
-						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
+						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : MyHomePage.pokedex)),
 					);
 				},
 			);
@@ -135,13 +141,13 @@ class _MyHomePageState extends State<MyHomePage> {
 					if (!snapshot.hasData){
 						return new Center(child : new CircularProgressIndicator());
 					}
-					pokedex = new Pokedex.list(snapshot.data.pokemonsList);
+					MyHomePage.pokedex = new Pokedex.list(snapshot.data.pokemonsList);
 					return RaisedButton(
 						child: Text('Go to Pokedex'),
 						onPressed: () {
 							Navigator.push(
 								context,
-								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
+								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : MyHomePage.pokedex)),
 							);
 						},
 					);
