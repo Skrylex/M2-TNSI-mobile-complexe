@@ -34,31 +34,39 @@ class _FavoriteState extends State<FavoriteView>{
 				itemBuilder: (context, index){
 					final pokemon = globals.savedPokemon.elementAt(index);
 
-					return Dismissible(
-						background: Container(color: Colors.red),
-						key : Key(pokemon.id.toString()),
+					return GestureDetector(
+						onTap: () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => PokemonView.pok(pokedex: pokedex, id:pokemon.id)),
+							);
+						},
+						child : Dismissible(
+							background: Container(color: Colors.red),
+							key : Key(pokemon.id.toString()),
 							onDismissed: (direction){
 								setState(() {
 									pokemon.saved = false;
-								  globals.savedPokemon.remove(pokemon);
+									globals.savedPokemon.remove(pokemon);
 									globals.counter.value = pokedex.getPokemonTeamCount();
 								});
 							},
 							child : ListTile(
 								title: Row(
-								children: <Widget>[
-									Flexible(
-										child:
-										Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png",
-											height: 50,
-											fit:BoxFit.fill),
-										//Image(image: AssetImage('images/pokeball.png'))
-									),
-									Padding(
-										padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-										child :Text(pokemon.name.toUpperCase(), style: TextStyle(fontSize: 20))
-									)
-								],
+									children: <Widget>[
+										Flexible(
+											child:
+											Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png",
+												height: 50,
+												fit:BoxFit.fill),
+											//Image(image: AssetImage('images/pokeball.png'))
+										),
+										Padding(
+											padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+											child :Text(pokemon.name.toUpperCase(), style: TextStyle(fontSize: 20))
+										)
+									],
+								)
 							)
 						)
 					);
