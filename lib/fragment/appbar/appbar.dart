@@ -10,12 +10,13 @@ class AppBarView extends StatefulWidget implements PreferredSizeWidget{
 	final Pokedex pokedex;
 	final String title;
 	final IconData icon;
+	final bool currentViewIsFavortieView;
 	@override
 	final Size preferredSize;
-	AppBarView({Key key, @required this.title, @required this.pokedex, this.icon}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
+	AppBarView({Key key, @required this.title, @required this.pokedex, this.icon, @required this.currentViewIsFavortieView}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
 
 	@override
-	State<StatefulWidget> createState() => AppBarState(pokedex, title, icon);
+	State<StatefulWidget> createState() => AppBarState(pokedex, title, icon, currentViewIsFavortieView);
 
 }
 
@@ -24,13 +25,14 @@ class AppBarState extends State<AppBarView>{
 	String title;
 	IconData icon;
 	final ValueNotifier<int> _counter = ValueNotifier<int>(0);
+	bool currentViewIsFavortieView;
 
-
-	AppBarState(Pokedex pokedex, String title, IconData icon){
+	AppBarState(Pokedex pokedex, String title, IconData icon, bool currentViewIsFavortieView){
 		this.title = title;
 		this.pokedex = pokedex;
 		_counter.value = pokedex.getPokemonTeamCount();
 		this.icon = icon;
+		this.currentViewIsFavortieView = currentViewIsFavortieView;
 	}
 
 	@override
@@ -67,7 +69,7 @@ class AppBarState extends State<AppBarView>{
 			new IconButton(
         icon: Icon(PokeflexIcon.pokeball, size: 30),
         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-        onPressed: (value != 0) ? () {
+        onPressed: (value != 0 && !currentViewIsFavortieView) ? () {
         	Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FavoriteView(pokedex : pokedex)),

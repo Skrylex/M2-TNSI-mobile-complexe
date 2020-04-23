@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/globals.dart' as globals;
 import '../pokedex.dart';
+import 'pokemonview.dart';
 
 class FavoriteView extends StatefulWidget{
 	final String title = "Détails Pokemon";
@@ -27,14 +28,36 @@ class _FavoriteState extends State<FavoriteView>{
 	@override
   Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title:"Pokémon Favoris", pokedex: pokedex, icon: Icons.star),
+			appBar: AppBarView(title:"Pokémon Favoris", pokedex: pokedex, icon: Icons.star, currentViewIsFavortieView: true),
 			body: ListView.builder(
 				itemCount: globals.savedPokemon.length,
 				itemBuilder: (context, index){
-					final item = globals.savedPokemon.elementAt(index);
+					final pokemon = globals.savedPokemon.elementAt(index);
 
 					return ListTile(
-						title: Text(item.name)
+						title: GestureDetector(
+							onTap: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => PokemonView.pok(pokedex: pokedex, id:pokemon.id)),
+								);
+							},
+							child : Row(
+								children: <Widget>[
+									Flexible(
+										child:
+										Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.id.toString() + ".png",
+											height: 50,
+											fit:BoxFit.fill),
+										//Image(image: AssetImage('images/pokeball.png'))
+									),
+									Padding(
+										padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+										child :Text(pokemon.name.toUpperCase(), style: TextStyle(fontSize: 20))
+									)
+								],
+							)
+						)
 					);
 				},
 
