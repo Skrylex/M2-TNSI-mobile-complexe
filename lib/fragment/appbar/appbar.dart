@@ -67,12 +67,12 @@ class AppBarState extends State<AppBarView>{
 			new IconButton(
         icon: Icon(PokeflexIcon.pokeball, size: 30),
         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-        onPressed: () {
-          Navigator.push(
+        onPressed: (value != 0) ? () {
+        	Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FavoriteView(pokedex : pokedex)),
           );
-			}),
+			} : null),
 			value != 0 ? new Positioned(
 				right: 8,
 				bottom: 8,
