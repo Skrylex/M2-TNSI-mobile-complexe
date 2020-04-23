@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/PokeflexIcon.dart';
 import 'package:flutterapp/globals.dart' as globals;
 
 import '../../pokedex.dart';
@@ -58,10 +59,14 @@ class AppBarState extends State<AppBarView>{
 
 	List<Widget> getIconNotification(value){
 		return <Widget>[
-			new IconButton(icon: Icon(Icons.notifications), onPressed: null),
-			globals.counter.value != 0 ? new Positioned(
-				right: 11,
-				bottom: 11,
+			new IconButton(
+					icon: Icon(PokeflexIcon.pokeball, size: 30),
+					padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+					onPressed: null,
+			),
+			value != 0 ? new Positioned(
+				right: 8,
+				bottom: 8,
 				child: new Container(
 					padding: EdgeInsets.all(2),
 					decoration: new BoxDecoration(
