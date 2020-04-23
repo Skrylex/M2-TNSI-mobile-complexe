@@ -46,7 +46,7 @@ class _PokemonCardState extends State<PokemonCardView>{
 						Text(pokemon.name),
 						Flexible(
 							child :
-							Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokedex.pokemonsList.elementAt(this.id).id.toString() + ".png")
+							Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + (pokedex.pokemonsList.elementAt(this.id).id-1).toString() + ".png")
 							//Image(image: AssetImage('images/pokeball.png'))
 						)
 						//Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png")
