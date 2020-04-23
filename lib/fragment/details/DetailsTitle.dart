@@ -70,10 +70,10 @@ class _DetailsTitleState extends State<DetailsTitle>{
 							),
 							onPressed: (){
 								setState(() {
-									if(pokemon.saved) {
+									if(pokemon.saved) { // REMOVE
 										pokemon.saved = false;
 										globals.savedPokemon.remove(pokemon);
-									} else{
+									} else{ // ADD IF TEAM INF. 6
 										if (globals.counter.value < 6) {
 											pokemon.saved = true;
 											globals.savedPokemon.add(pokemon);
