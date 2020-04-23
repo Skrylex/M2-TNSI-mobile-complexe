@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
-import 'package:flutterapp/pokedexview.dart';
-import 'pokedex.dart';
-import 'pokemon.dart';
-import 'webservice.dart';
+import 'package:flutterapp/view/pokedexview.dart';
+import '../pokedex.dart';
+import '../pokemon.dart';
+import '../webservice.dart';
 import 'package:flutterapp/globals.dart' as globals;
 void main() => runApp(MyApp());
 
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 	MyHomePage({Key key}) : super(key: key);
-	final String title = "PokeFlex";
+	final String title = "PokeHome";
 	@override
 	_MyHomePageState createState() => _MyHomePageState();
 
@@ -44,13 +44,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 	Pokedex pokedex = new Pokedex();
 
-	List<Pokemon> savedPokemon = new List<Pokemon>();
-	final ValueNotifier<int> _counter = ValueNotifier<int>(0);
-
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title: widget.title, pokedex: pokedex),
+			appBar: AppBarView(title: widget.title, pokedex: pokedex, icon: Icons.home),
 			body: Center(
 				child :
 				Column(
