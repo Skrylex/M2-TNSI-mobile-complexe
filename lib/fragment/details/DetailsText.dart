@@ -33,7 +33,8 @@ class _DetailsTextState extends State<DetailsText>{
 					builder: (context, snapshot) {
 						if (snapshot.hasData) {
 							pokemon.infos = snapshot.data;
-							return Text(pokemon.infos);
+							return Text(pokemon.infos,
+							textAlign: TextAlign.justify,);
 						} else if (snapshot.hasError) {
 							//TODO return to pokedex with toast error
 							return Text("${snapshot.error}");

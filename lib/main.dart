@@ -115,8 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
 	}
 	Widget initPokedex(){
 		if(pokedex.pokemonsList.isNotEmpty){
-			print("LEPOKEDEX EST PLEIN");
-			print(pokedex.pokemonsList.isEmpty);
 			return RaisedButton(
 				child: Text('Go to Pokedex'),
 				onPressed: () {
@@ -134,9 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
 						return new Center(child : new CircularProgressIndicator());
 					}
 					pokedex = new Pokedex.list(snapshot.data.pokemonsList);
-					print("-----");
-					print(pokedex);
-					print("-----");
 					return RaisedButton(
 						child: Text('Go to Pokedex'),
 						onPressed: () {
