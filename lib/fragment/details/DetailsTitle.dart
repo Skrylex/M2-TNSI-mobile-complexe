@@ -74,7 +74,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 										pokemon.saved = false;
 										globals.savedPokemon.remove(pokemon);
 									} else{ // ADD IF TEAM INF. 6 (Limit define in globals)
-                    if (globals.counter.value < globals.LimiteTeam) {
+                    if (globals.counter.value < globals.teamSize) {
 											pokemon.saved = true;
 											globals.savedPokemon.add(pokemon);
 										} else {
@@ -83,7 +83,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 													builder: (BuildContext context) {
 														return AlertDialog(
 															title: new Text("Équipe complète"),
-															content: new Text("Tu ne peux pas avoir plus de 6 pokémons dans ton équipe."),
+															content: new Text("Tu ne peux pas avoir plus de " + globals.teamSize.toString() + " pokémons dans ton équipe."),
 															actions: <Widget>[
 																new FlatButton(
 																		onPressed: () {

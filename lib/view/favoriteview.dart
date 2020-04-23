@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:flutterapp/pokeflex_icon_icons.dart';
 import '../pokedex.dart';
 import 'pokemonview.dart';
 
 class FavoriteView extends StatefulWidget{
-	final String title = "Détails Pokemon";
+	final String title = "Votre équipe";
 	final Pokedex pokedex;
 
 	const FavoriteView({Key key, @required this.pokedex}) : super(key: key);
@@ -28,7 +29,7 @@ class _FavoriteState extends State<FavoriteView>{
 	@override
   Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title:"Pokémon Favoris", pokedex: pokedex, icon: Icons.star, currentViewIsFavortieView: true),
+			appBar: AppBarView(title:"Votre équipe", pokedex: pokedex, icon: Icons.star, currentViewIsFavortieView: true),
 			body: ListView.builder(
 				itemCount: globals.savedPokemon.length,
 				itemBuilder: (context, index){
@@ -42,8 +43,17 @@ class _FavoriteState extends State<FavoriteView>{
 							);
 						},
 						child : Dismissible(
-							background: Container(color: Colors.red),
+							background: Container(
+								alignment: AlignmentDirectional.centerEnd,
+								color: Colors.red,
+								child: Icon(
+									PokeflexIcon.trash_1,
+									color: Colors.white,
+								),
+								padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+							),
 							key : Key(pokemon.id.toString()),
+							direction: DismissDirection.endToStart,
 							onDismissed: (direction){
 								setState(() {
 									pokemon.saved = false;
