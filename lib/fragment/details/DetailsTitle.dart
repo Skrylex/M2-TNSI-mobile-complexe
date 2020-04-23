@@ -25,12 +25,15 @@ class _DetailsTitleState extends State<DetailsTitle>{
 	@override
 	void initState(){
 		super.initState();
+
 	}
 
 	_DetailsTitleState(Pokedex pok, int id ){
 		this.pokedex = pok;
 		this.id = id;
 		this.pokemon = pok.pokemonsList.elementAt(id-1);
+		print("test");
+		print(pokemon.saved);
 	}
 
   @override
