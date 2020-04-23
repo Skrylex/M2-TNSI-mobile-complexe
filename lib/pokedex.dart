@@ -49,6 +49,12 @@ class Pokedex{
     return Future.sync(() => pokemonsList);
   }
 
+  Pokemon getPokemonById(_id) {
+    for (Pokemon pok in pokemonsList) {
+      if (pok.id == _id) return pok;
+    }
+    return null;
+  }
 
 
   @override

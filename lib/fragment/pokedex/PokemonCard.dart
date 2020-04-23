@@ -23,7 +23,7 @@ class _PokemonCardState extends State<PokemonCardView>{
 	_PokemonCardState(int id, Pokedex pok){
 		this.id = id;
 		this.pokedex = pok;
-		this.pokemon = pokedex.pokemonsList.elementAt(this.id-1);
+		this.pokemon = pokedex.getPokemonById(this.id);
 	}
 
 	@override
@@ -46,7 +46,7 @@ class _PokemonCardState extends State<PokemonCardView>{
 						Text(pokemon.name),
 						Flexible(
 							child :
-							Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokedex.pokemonsList.elementAt(this.id).id.toString() + ".png")
+							Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokedex.getPokemonById(this.id).id.toString() + ".png")
 							//Image(image: AssetImage('images/pokeball.png'))
 						)
 						//Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pok.id.toString() + ".png")
