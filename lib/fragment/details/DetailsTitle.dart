@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pokeflex_icon_icons.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../pokedex.dart';
 import '../../pokemon.dart';
 
@@ -97,7 +100,8 @@ class _DetailsTitleState extends State<DetailsTitle>{
 											);
 										}
 									}
-									globals.counter.value = pokedex.getPokemonTeamCount();
+									globals.counter.value = globals.savedPokemon.length;
+									saveTeam();
 								});
 							},
 						),
@@ -105,4 +109,15 @@ class _DetailsTitleState extends State<DetailsTitle>{
 				),
 			);
 		}
+
+	Future<Null> saveTeam() async{
+		final SharedPreferences prefs = await SharedPreferences.getInstance();
+		print("***");
+		print(Pokemon.encodeToJson(globals.savedPokemon));
+		setState(() {
+			prefs.setString('team', jsonEncode(globals.savedPokemon));
+		});
+	}
+
+
 }

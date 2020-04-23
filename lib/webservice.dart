@@ -25,13 +25,7 @@ class WebService {
 		var response = await http.get(url);
 
 		for(Map<dynamic,dynamic> s in jsonDecode(response.body)['flavor_text_entries']){
-			//print(s['language']['name'].toString() == 'fr');
-			//print(s['language']['name'].toString() == 'fr' && (s['version']['name'].toString() == 'blue' || s['version']['name'].toString() == 'red' || s['version']['name'].toString() == 'alpha-sapphir' || s['version']['name'].toString() == 'omega-ruby' ));
-			print('ok');
-//			print(jsonDecode(s['flavor_text'].toString()));
-//			print(jsonDecode(s['flavor_text'].toString().replaceAll("\\n", "")));
 			if(s['language']['name'].toString() == "fr" && (s['version']['name'].toString() == 'blue' || s['version']['name'].toString() == 'red' || s['version']['name'].toString() == 'alpha-sapphir' || s['version']['name'].toString() == 'omega-ruby' )){
-				print("OK : "+s['flavor_text'].toString().replaceAll("\n", ""));
 				return (s['flavor_text'].toString().replaceAll("\n", " "));
 			}
 		}

@@ -25,26 +25,6 @@ class Pokedex{
     );
   }
 
-  /*void populatePokedex(){
-    final myFuture = WebService.getPokemons();
-    myFuture.then((resp) {
-      getPokemonsFromJson(resp);
-    });
-  }*/
-
-  /*void getPokemonsFromJson(Map<dynamic, dynamic> s){
-    //print(s['pokemon_entries'][0]);
-    for(Map<dynamic, dynamic> pokemon in s['pokemon_entries']){
-      var id = pokemon['entry_number'];
-      var name = pokemon['pokemon_species']['name'];
-      final myFuture = WebService.getPokemon(id);
-      myFuture.then((resp) {
-        print(resp);
-        pokemons.add(new Pokemon.fromJson(resp));
-      });
-    }
-  }*/
-
   Future<List<Pokemon>> getFuturePokemons() async {
     return Future.sync(() => pokemonsList);
   }

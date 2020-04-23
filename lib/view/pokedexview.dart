@@ -5,6 +5,7 @@ import 'package:flutterapp/view/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutterapp/webservice.dart';
+import 'package:flutterapp/globals.dart' as globals;
 
 class PokedexView extends StatefulWidget {
   final Pokedex pokedex;
@@ -21,6 +22,9 @@ class _PokedexState extends State<PokedexView> {
   @override
   void initState() {
     super.initState();
+    for(Pokemon p in globals.savedPokemon){
+      pokedex.getPokemonById(p.id).saved = true;
+    }
   }
 
   @override
@@ -32,7 +36,6 @@ class _PokedexState extends State<PokedexView> {
   }
 
   Widget getPokedexWidget(){
-    //print(pokedex);
     if(pokedex?.pokemonsList?.isEmpty ?? true){
       return FutureBuilder<Pokedex>(
         future: WebService.fetchPokedex(),

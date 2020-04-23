@@ -54,4 +54,6 @@ class _PokemonState extends State<PokemonView> {
 			)
 		);
 	}
+
+
 }
