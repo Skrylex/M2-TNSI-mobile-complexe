@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/fragment/details/DetailsText.dart';
 import 'package:flutterapp/fragment/details/DetailsTitle.dart';
-import 'package:flutterapp/view/main.dart';
+import 'package:flutterapp/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutter/foundation.dart';
