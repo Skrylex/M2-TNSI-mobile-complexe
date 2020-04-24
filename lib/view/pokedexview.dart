@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/fragment/pokedex/PokemonCard.dart';
-import 'package:flutterapp/view/main.dart';
+import 'package:flutterapp/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutterapp/webservice.dart';

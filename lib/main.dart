@@ -1,14 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/view/pokedexview.dart';
-import '../pokedex.dart';
-import '../pokemon.dart';
-import '../webservice.dart';
+import 'pokedex.dart';
+import 'pokemon.dart';
+import 'webservice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:permission/permission.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -56,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title: widget.title, pokedex: pokedex, icon: Icons.home, activateFavorites: false),
 			body: Center(
 				child :
 				Column(
@@ -74,17 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 	Widget initPokedex(){
 		//loadTeam();
-		if(pokedex.pokemonsList.isNotEmpty){
-			return RaisedButton(
-				child: Text('Go to Pokedex'),
-				onPressed: () {
-					Navigator.push(
-						context,
-						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
-					);
-				},
-			);
-		}else{
+		if(pokedex.pokemonsList.isEmpty) {
 			return FutureBuilder<Pokedex>(
 				future: WebService.fetchPokedex(),
 				builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
@@ -92,33 +84,26 @@ class _MyHomePageState extends State<MyHomePage> {
 						return new Center(child : new CircularProgressIndicator());
 					}
 					pokedex = new Pokedex.list(snapshot.data.pokemonsList);
-					return RaisedButton(
-						child: Text('Go to Pokedex'),
-						onPressed: () {
-							Navigator.push(
-								context,
-								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
-							);
-						},
-					);
+					Timer.run(() {
+						Navigator.pushReplacement(
+							context,
+							MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
+						);
+					});
+					return Container();
 				},
 			);
 		}
 	}
 
 	void loadTeam() async{
-		print("---");
-		print(globals.savedPokemon);
 		if(globals.savedPokemon == null || globals.savedPokemon.isEmpty){
 			final SharedPreferences prefs = await SharedPreferences.getInstance();
-			print("^^^^^");
 			String s = prefs.get('team');
-			print("String : "+s);
 			if(s != null){
 				setState(() {
 					globals.savedPokemon = decodeJsonSharedPreferences(jsonDecode(s));
 					globals.counter.value = globals.savedPokemon.length;
-					print(globals.savedPokemon);
 				});
 			}
 		}

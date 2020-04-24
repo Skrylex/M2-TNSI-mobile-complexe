@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/fragment/details/DetailsText.dart';
 import 'package:flutterapp/fragment/details/DetailsTitle.dart';
-import 'package:flutterapp/view/main.dart';
+import 'package:flutterapp/main.dart';
 import 'package:flutterapp/pokedex.dart';
 import 'package:flutterapp/pokemon.dart';
 import 'package:flutter/foundation.dart';
@@ -27,7 +27,7 @@ class _PokemonState extends State<PokemonView> {
 	_PokemonState(Pokedex pok, int id){
 		this.pokedex = pok;
 		this.id = id;
-		this.pokemon = pok.pokemonsList.elementAt(id-1);
+		this.pokemon = pok.getPokemonById(id);
 	}
 
 	@override
