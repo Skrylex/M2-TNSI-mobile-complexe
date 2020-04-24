@@ -29,7 +29,7 @@ class _FavoriteState extends State<FavoriteView>{
 	@override
   Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title:"Votre équipe", pokedex: pokedex, icon: Icons.star, currentViewIsFavortieView: true),
+			appBar: AppBarView(title:"Votre équipe", pokedex: pokedex, icon: Icons.star, activateFavorites: false),
 			body: ListView.builder(
 				itemCount: globals.savedPokemon.length,
 				itemBuilder: (context, index){
@@ -56,9 +56,15 @@ class _FavoriteState extends State<FavoriteView>{
 							direction: DismissDirection.endToStart,
 							onDismissed: (direction){
 								setState(() {
+									print(pokedex.pokemonsList.length);
+									print(pokedex.getPokemonById(pokemon.id));
+									if(pokedex != null && pokedex.pokemonsList.isNotEmpty){
+										pokedex.getPokemonById(pokemon.id).saved = false;
+									}
 									pokemon.saved = false;
+									print(pokedex.getPokemonById(pokemon.id));
 									globals.savedPokemon.remove(pokemon);
-									globals.counter.value = pokedex.getPokemonTeamCount();
+									globals.counter.value = globals.savedPokemon.length;
 								});
 							},
 							child : ListTile(

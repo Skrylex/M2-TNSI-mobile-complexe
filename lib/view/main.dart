@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
@@ -5,6 +7,7 @@ import 'package:flutterapp/view/pokedexview.dart';
 import '../pokedex.dart';
 import '../pokemon.dart';
 import '../webservice.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutterapp/globals.dart' as globals;
 void main() => runApp(MyApp());
 
@@ -45,9 +48,15 @@ class _MyHomePageState extends State<MyHomePage> {
 	Pokedex pokedex = new Pokedex();
 
 	@override
+	void initState() {
+		super.initState();
+		loadTeam();
+	}
+
+	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title: widget.title, pokedex: pokedex, icon: Icons.home, currentViewIsFavortieView: false),
+			appBar: AppBarView(title: widget.title, pokedex: pokedex, icon: Icons.home, activateFavorites: false),
 			body: Center(
 				child :
 				Column(
@@ -64,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 	}
 
 	Widget initPokedex(){
+		//loadTeam();
 		if(pokedex.pokemonsList.isNotEmpty){
 			return RaisedButton(
 				child: Text('Go to Pokedex'),
@@ -95,4 +105,32 @@ class _MyHomePageState extends State<MyHomePage> {
 			);
 		}
 	}
+
+	void loadTeam() async{
+		print("---");
+		print(globals.savedPokemon);
+		if(globals.savedPokemon == null || globals.savedPokemon.isEmpty){
+			final SharedPreferences prefs = await SharedPreferences.getInstance();
+			print("^^^^^");
+			String s = prefs.get('team');
+			print("String : "+s);
+			if(s != null){
+				setState(() {
+					globals.savedPokemon = decodeJsonSharedPreferences(jsonDecode(s));
+					globals.counter.value = globals.savedPokemon.length;
+					print(globals.savedPokemon);
+				});
+			}
+		}
+	}
+
+	List<Pokemon> decodeJsonSharedPreferences(json){
+		List<Pokemon> p = new List();
+		for(dynamic s in json){
+			p.add(new Pokemon.factory(id : s['id'],name: s['name'],infos : s['infos'], saved: s['saved']));
+		}
+		return p;
+	}
+
+
 }
