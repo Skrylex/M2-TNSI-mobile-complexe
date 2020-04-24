@@ -31,7 +31,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 	_DetailsTitleState(Pokedex pok, int id ){
 		this.pokedex = pok;
 		this.id = id;
-		this.pokemon = pok.pokemonsList.elementAt(id-1);
+		this.pokemon = pok.getPokemonById(id);
 		print("test");
 		print(pokemon.saved);
 	}
@@ -78,7 +78,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 								setState(() {
 									if(pokemon.saved) { // REMOVE
 										pokemon.saved = false;
-										globals.savedPokemon.remove(pokemon);
+										globals.savedPokemon.removeWhere((p) => p.id == pokemon.id);
 									} else{ // ADD IF TEAM INF. 6 (Limit define in globals)
                     if (globals.counter.value < globals.teamSize) {
 											pokemon.saved = true;
