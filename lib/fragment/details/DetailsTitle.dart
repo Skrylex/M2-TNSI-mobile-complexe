@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pokeflex_icon_icons.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../pokedex.dart';
 import '../../pokemon.dart';
 
@@ -22,12 +25,15 @@ class _DetailsTitleState extends State<DetailsTitle>{
 	@override
 	void initState(){
 		super.initState();
+
 	}
 
 	_DetailsTitleState(Pokedex pok, int id ){
 		this.pokedex = pok;
 		this.id = id;
-		this.pokemon = pok.pokemonsList.elementAt(id-1);
+		this.pokemon = pok.getPokemonById(id);
+		print("test");
+		print(pokemon.saved);
 	}
 
   @override
@@ -72,9 +78,9 @@ class _DetailsTitleState extends State<DetailsTitle>{
 								setState(() {
 									if(pokemon.saved) { // REMOVE
 										pokemon.saved = false;
-										globals.savedPokemon.remove(pokemon);
+										globals.savedPokemon.removeWhere((p) => p.id == pokemon.id);
 									} else{ // ADD IF TEAM INF. 6 (Limit define in globals)
-                    if (globals.counter.value < globals.LimiteTeam) {
+                    if (globals.counter.value < globals.teamSize) {
 											pokemon.saved = true;
 											globals.savedPokemon.add(pokemon);
 										} else {
@@ -83,7 +89,7 @@ class _DetailsTitleState extends State<DetailsTitle>{
 													builder: (BuildContext context) {
 														return AlertDialog(
 															title: new Text("Équipe complète"),
-															content: new Text("Tu ne peux pas avoir plus de 6 pokémons dans ton équipe."),
+															content: new Text("Tu ne peux pas avoir plus de " + globals.teamSize.toString() + " pokémons dans ton équipe."),
 															actions: <Widget>[
 																new FlatButton(
 																		onPressed: () {
@@ -97,7 +103,8 @@ class _DetailsTitleState extends State<DetailsTitle>{
 											);
 										}
 									}
-									globals.counter.value = pokedex.getPokemonTeamCount();
+									globals.counter.value = globals.savedPokemon.length;
+									saveTeam();
 								});
 							},
 						),
@@ -105,4 +112,15 @@ class _DetailsTitleState extends State<DetailsTitle>{
 				),
 			);
 		}
+
+	Future<Null> saveTeam() async{
+		final SharedPreferences prefs = await SharedPreferences.getInstance();
+		print("***");
+		print(Pokemon.encodeToJson(globals.savedPokemon));
+		setState(() {
+			prefs.setString('team', jsonEncode(globals.savedPokemon));
+		});
+	}
+
+
 }

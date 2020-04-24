@@ -10,13 +10,13 @@ class AppBarView extends StatefulWidget implements PreferredSizeWidget{
 	final Pokedex pokedex;
 	final String title;
 	final IconData icon;
-	final bool currentViewIsFavortieView;
+	final bool activateFavorites;
 	@override
 	final Size preferredSize;
-	AppBarView({Key key, @required this.title, @required this.pokedex, this.icon, @required this.currentViewIsFavortieView}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
+	AppBarView({Key key, @required this.title, @required this.pokedex, this.icon, @required this.activateFavorites}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
 
 	@override
-	State<StatefulWidget> createState() => AppBarState(pokedex, title, icon, currentViewIsFavortieView);
+	State<StatefulWidget> createState() => AppBarState(pokedex, title, icon, activateFavorites);
 
 }
 
@@ -25,14 +25,15 @@ class AppBarState extends State<AppBarView>{
 	String title;
 	IconData icon;
 	final ValueNotifier<int> _counter = ValueNotifier<int>(0);
-	bool currentViewIsFavortieView;
+	bool activateFavorites;
+	bool activateBack;
 
-	AppBarState(Pokedex pokedex, String title, IconData icon, bool currentViewIsFavortieView){
+	AppBarState(Pokedex pokedex, String title, IconData icon, bool activateFavorites){
 		this.title = title;
 		this.pokedex = pokedex;
 		_counter.value = pokedex.getPokemonTeamCount();
 		this.icon = icon;
-		this.currentViewIsFavortieView = currentViewIsFavortieView;
+		this.activateFavorites = activateFavorites;
 	}
 
 	@override
@@ -44,7 +45,7 @@ class AppBarState extends State<AppBarView>{
 	Widget build(BuildContext context) {
 		return AppBar(
 			title: Text(title),
-			//leading: Icon(icon),
+			//leading: (activateBack) ? Icon(Icons.arrow_back) : new Container(),
 			actions: <Widget>[
 						ValueListenableBuilder(
 							builder: (BuildContext context, int value, Widget child) {
@@ -69,7 +70,7 @@ class AppBarState extends State<AppBarView>{
 			new IconButton(
         icon: Icon(PokeflexIcon.pokeball, size: 30),
         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-        onPressed: (value != 0 && !currentViewIsFavortieView) ? () {
+        onPressed: (value != 0 && activateFavorites) ? () {
         	Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FavoriteView(pokedex : pokedex)),

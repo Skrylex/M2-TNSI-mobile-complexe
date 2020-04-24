@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:flutterapp/pokeflex_icon_icons.dart';
 import '../pokedex.dart';
 import 'pokemonview.dart';
 
 class FavoriteView extends StatefulWidget{
-	final String title = "Détails Pokemon";
+	final String title = "Votre équipe";
 	final Pokedex pokedex;
 
 	const FavoriteView({Key key, @required this.pokedex}) : super(key: key);
@@ -28,7 +29,7 @@ class _FavoriteState extends State<FavoriteView>{
 	@override
   Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title:"Pokémon Favoris", pokedex: pokedex, icon: Icons.star, currentViewIsFavortieView: true),
+			appBar: AppBarView(title:"Votre équipe", pokedex: pokedex, icon: Icons.star, activateFavorites: false),
 			body: ListView.builder(
 				itemCount: globals.savedPokemon.length,
 				itemBuilder: (context, index){
@@ -45,19 +46,25 @@ class _FavoriteState extends State<FavoriteView>{
 							background: Container(
 								alignment: AlignmentDirectional.centerEnd,
 								color: Colors.red,
-								child: Padding(
-									padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-									child: Icon(Icons.delete,
-										color: Colors.white,
-									),
+								child: Icon(
+									PokeflexIcon.trash_1,
+									color: Colors.white,
 								),
+								padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
 							),
 							key : Key(pokemon.id.toString()),
+							direction: DismissDirection.endToStart,
 							onDismissed: (direction){
 								setState(() {
+									print(pokedex.pokemonsList.length);
+									print(pokedex.getPokemonById(pokemon.id));
+									if(pokedex != null && pokedex.pokemonsList.isNotEmpty){
+										pokedex.getPokemonById(pokemon.id).saved = false;
+									}
 									pokemon.saved = false;
+									print(pokedex.getPokemonById(pokemon.id));
 									globals.savedPokemon.remove(pokemon);
-									globals.counter.value = pokedex.getPokemonTeamCount();
+									globals.counter.value = globals.savedPokemon.length;
 								});
 							},
 							child : ListTile(
