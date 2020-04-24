@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title: widget.title, pokedex: pokedex, icon: Icons.home, currentViewIsFavortieView: false),
+			appBar: AppBarView(title: widget.title, pokedex: pokedex, icon: Icons.home, activateFavorites: false),
 			body: Center(
 				child :
 				Column(

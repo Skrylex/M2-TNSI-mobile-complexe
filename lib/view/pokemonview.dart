@@ -38,7 +38,7 @@ class _PokemonState extends State<PokemonView> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title:"Détails Pokémon", pokedex: pokedex, currentViewIsFavortieView: false),
+			appBar: AppBarView(title:"Détails Pokémon", pokedex: pokedex, activateFavorites: true),
 			body: Column(
 				children: <Widget>[
 					Flexible(

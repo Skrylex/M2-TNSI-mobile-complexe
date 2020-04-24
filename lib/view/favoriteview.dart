@@ -29,7 +29,7 @@ class _FavoriteState extends State<FavoriteView>{
 	@override
   Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBarView(title:"Votre équipe", pokedex: pokedex, icon: Icons.star, currentViewIsFavortieView: true),
+			appBar: AppBarView(title:"Votre équipe", pokedex: pokedex, icon: Icons.star, activateFavorites: false),
 			body: ListView.builder(
 				itemCount: globals.savedPokemon.length,
 				itemBuilder: (context, index){
