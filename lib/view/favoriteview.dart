@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/fragment/appbar/appbar.dart';
 import 'package:flutterapp/globals.dart' as globals;
 import 'package:flutterapp/pokeflex_icon_icons.dart';
+import 'package:flutterapp/view/confirmationview.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../pokedex.dart';
+import '../pokemon.dart';
 import 'pokemonview.dart';
 
 class FavoriteView extends StatefulWidget{
@@ -56,13 +61,10 @@ class _FavoriteState extends State<FavoriteView>{
 							direction: DismissDirection.endToStart,
 							onDismissed: (direction){
 								setState(() {
-									print(pokedex.pokemonsList.length);
-									print(pokedex.getPokemonById(pokemon.id));
 									if(pokedex != null && pokedex.pokemonsList.isNotEmpty){
 										pokedex.getPokemonById(pokemon.id).saved = false;
 									}
 									pokemon.saved = false;
-									print(pokedex.getPokemonById(pokemon.id));
 									globals.savedPokemon.remove(pokemon);
 									globals.counter.value = globals.savedPokemon.length;
 								});
@@ -90,9 +92,10 @@ class _FavoriteState extends State<FavoriteView>{
 			),
 			floatingActionButton: FloatingActionButton.extended(
 				onPressed: (globals.savedPokemon.length != 0) ? () {
+					resetAll();
 					Navigator.push(
 						context,
-						MaterialPageRoute(builder: (context) => FavoriteView(pokedex : pokedex)),
+						MaterialPageRoute(builder: (context) => ConfirmationView(pokedex: pokedex)),
 					);
 				} : null,
 				label: Text('Valider'),
@@ -103,6 +106,20 @@ class _FavoriteState extends State<FavoriteView>{
 			),
 			floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 		);
+	}
+
+	Future<Null> saveTeam() async{
+		final SharedPreferences prefs = await SharedPreferences.getInstance();
+		setState(() { prefs.setString('team', jsonEncode(globals.savedPokemon)); });
+	}
+
+	void resetAll() async {
+		for(Pokemon p in globals.savedPokemon){
+			pokedex.getPokemonById(p.id).saved = false;
+		}
+		globals.savedPokemon.clear();
+		globals.counter.value = globals.savedPokemon.length;
+		saveTeam();
 	}
 
 }

@@ -97,18 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
 	}
 
 	void loadTeam() async{
-		print("---");
-		print(globals.savedPokemon);
 		if(globals.savedPokemon == null || globals.savedPokemon.isEmpty){
 			final SharedPreferences prefs = await SharedPreferences.getInstance();
-			print("^^^^^");
 			String s = prefs.get('team');
-			print("String : "+s);
 			if(s != null){
 				setState(() {
 					globals.savedPokemon = decodeJsonSharedPreferences(jsonDecode(s));
 					globals.counter.value = globals.savedPokemon.length;
-					print(globals.savedPokemon);
 				});
 			}
 		}

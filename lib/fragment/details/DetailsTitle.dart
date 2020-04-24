@@ -32,8 +32,6 @@ class _DetailsTitleState extends State<DetailsTitle>{
 		this.pokedex = pok;
 		this.id = id;
 		this.pokemon = pok.getPokemonById(id);
-		print("test");
-		print(pokemon.saved);
 	}
 
   @override
@@ -115,8 +113,6 @@ class _DetailsTitleState extends State<DetailsTitle>{
 
 	Future<Null> saveTeam() async{
 		final SharedPreferences prefs = await SharedPreferences.getInstance();
-		print("***");
-		print(Pokemon.encodeToJson(globals.savedPokemon));
 		setState(() {
 			prefs.setString('team', jsonEncode(globals.savedPokemon));
 		});
