@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -76,17 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 	Widget initPokedex(){
 		//loadTeam();
-		if(pokedex.pokemonsList.isNotEmpty){
-			return RaisedButton(
-				child: Text('Go to Pokedex'),
-				onPressed: () {
-					Navigator.push(
-						context,
-						MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
-					);
-				},
-			);
-		}else{
+		if(pokedex.pokemonsList.isEmpty) {
 			return FutureBuilder<Pokedex>(
 				future: WebService.fetchPokedex(),
 				builder: (BuildContext context, AsyncSnapshot<Pokedex> snapshot) {
@@ -94,15 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
 						return new Center(child : new CircularProgressIndicator());
 					}
 					pokedex = new Pokedex.list(snapshot.data.pokemonsList);
-					return RaisedButton(
-						child: Text('Go to Pokedex'),
-						onPressed: () {
-							Navigator.push(
-								context,
-								MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
-							);
-						},
-					);
+					Timer.run(() {
+						Navigator.pushReplacement(
+							context,
+							MaterialPageRoute(builder: (context) => PokedexView.pok(pokedex : pokedex)),
+						);
+					});
+					return Container();
 				},
 			);
 		}

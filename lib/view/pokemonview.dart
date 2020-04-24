@@ -27,7 +27,7 @@ class _PokemonState extends State<PokemonView> {
 	_PokemonState(Pokedex pok, int id){
 		this.pokedex = pok;
 		this.id = id;
-		this.pokemon = pok.pokemonsList.elementAt(id-1);
+		this.pokemon = pok.getPokemonById(id);
 	}
 
 	@override

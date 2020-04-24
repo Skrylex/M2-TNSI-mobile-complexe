@@ -26,6 +26,7 @@ class AppBarState extends State<AppBarView>{
 	IconData icon;
 	final ValueNotifier<int> _counter = ValueNotifier<int>(0);
 	bool activateFavorites;
+	bool activateBack;
 
 	AppBarState(Pokedex pokedex, String title, IconData icon, bool activateFavorites){
 		this.title = title;
@@ -44,7 +45,7 @@ class AppBarState extends State<AppBarView>{
 	Widget build(BuildContext context) {
 		return AppBar(
 			title: Text(title),
-			//leading: Icon(icon),
+			//leading: (activateBack) ? Icon(Icons.arrow_back) : new Container(),
 			actions: <Widget>[
 						ValueListenableBuilder(
 							builder: (BuildContext context, int value, Widget child) {
