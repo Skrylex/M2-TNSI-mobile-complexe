@@ -87,8 +87,21 @@ class _FavoriteState extends State<FavoriteView>{
 						)
 					);
 				},
-
-			)
+			),
+			floatingActionButton: FloatingActionButton.extended(
+				onPressed: (globals.savedPokemon.length != 0) ? () {
+					Navigator.push(
+						context,
+						MaterialPageRoute(builder: (context) => FavoriteView(pokedex : pokedex)),
+					);
+				} : null,
+				label: Text('Valider'),
+				icon: Icon(Icons.shopping_cart),
+				backgroundColor: (globals.savedPokemon.length != 0) ? Colors.red : Colors.blueGrey,
+				elevation: 10,
+				splashColor: Colors.blue,
+			),
+			floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 		);
 	}
 
