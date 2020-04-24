@@ -9,6 +9,8 @@ import 'pokemon.dart';
 import 'webservice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutterapp/globals.dart' as globals;
+import 'package:permission/permission.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

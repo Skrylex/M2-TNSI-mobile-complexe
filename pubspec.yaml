@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  permission: ^0.1.7
+  permission_handler: ^5.0.0+hotfix.4
   http: ^0.12.0+4
   json_annotation: ^3.0.1
   flutter:
