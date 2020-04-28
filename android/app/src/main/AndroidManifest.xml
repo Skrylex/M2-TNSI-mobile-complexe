@@ -9,7 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Pokeflex"
-        android:icon="@mipmap/app_icon">
+        android:icon="@drawable/app_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
