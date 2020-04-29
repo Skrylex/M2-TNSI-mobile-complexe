@@ -1,6 +1,6 @@
 # Pokeflex 
 
-![PokéCenter](https://imgur.com/a/cCGcWrV)
+![PokéCenter](/images/market_center.png)
 
 ## Introduction
 
