@@ -1,6 +1,6 @@
 # Pokeflex 
 
-<center>![PokéCenter](/images/market_center.png)</center>
+![PokéCenter](/images/market_center.png)
 
 ## Introduction
 
