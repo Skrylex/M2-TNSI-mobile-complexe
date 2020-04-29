@@ -4,6 +4,8 @@
 
 ## Introduction
 
+Vous trouverez l'APK signée à la racine du GIT, nommée : "pokeflex.apk"
+
 Dans le cadre de ce projet, nous avons réalisé une application Flutter de gestion d'équipe Pokémon. 
 Nous avons choisi ce thème car il se rapproche des fonctionnalités attendues. 
 Pour ce faire, nous avons utilisé une API RESTful pour récupérer les Pokémons de la première génération. 
