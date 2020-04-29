@@ -1,7 +1,5 @@
 # Pokeflex 
 
-![PokéCenter](/images/market_center.png)
-
 <div style="text-align:center"><img src="/images/market_center.png" /></div>
 
 ## Introduction
