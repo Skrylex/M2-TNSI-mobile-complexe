@@ -17,11 +17,8 @@ Pour ce faire, nous avons utilisé une API RESTful pour récupérer les Pokémon
 L'application se découpe en 5 sections : 
 
 - Home Page : Chargement de l'application et récupération du Pokédex via l'API. Cette page devient inaccessible après le chargement du Pokédex (Waiting Screen). 
-
 - Pokédex : Affichage de tous les Pokémons sous forme de liste de Card (Nom + Image). La Card est cliquable pour accéder à la page Détails. 
-
 - Détail Pokémon : Affichage des informations spécifiques au Pokémon et la possibilité d'ajout/retrait à l'équipe (6 Pokémons max. à l'équipe). 
-
 - Equipe : Affichage de l'équipe (6 Pokémons max. à l'équipe). Possibilité d'accéder à la page Détails en cliquant, de retirer un Pokémon de la liste via un Swipe sur l'élément de la liste. Enfin, nous pouvons valider l'équipe. 
 
 - Validation : Affichage d'une confirmation de l'équipe à récupérer au PokéCenter le plus proche. 
