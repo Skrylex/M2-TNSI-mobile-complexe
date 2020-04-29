@@ -1,8 +1,6 @@
 # Pokeflex 
 
-<p align="center">
-  <div style="text-align:center"><img src="/images/market_center.png" alt="PokeCenter"/></div>
-</p>
+<p align="center"><img src="/images/market_center.png" alt="PokeCenter"/></p>
 
 ## Introduction
 
