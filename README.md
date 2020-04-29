@@ -91,7 +91,7 @@ Avant la release finale, nous avons changer nos propriétés d'application :
 
 ### Signature 
 
-La signature de l'application a été effectué en suivant les instructions [de la documentation Flutter "Signing the app"](  https://flutter.dev/docs/deployment/android#signing-the-app  ).
+La signature de l'application a été effectuée en suivant les instructions [de la documentation Flutter "Signing the app"](  https://flutter.dev/docs/deployment/android#signing-the-app  ).
 
 La signature a été vérifiée grâce à la commande `jarsigner -verify -verbose -certs .\app.apk`.
 
@@ -99,7 +99,7 @@ La signature a été vérifiée grâce à la commande `jarsigner -verify -verbos
 
 ### Release
 
-La release finale a été effectué en suivant les instructions [de la documentation Flutter "Build an APK"]( https://flutter.dev/docs/deployment/android#build-an-apk).
+La release finale a été effectuée en suivant les instructions [de la documentation Flutter "Build an APK"]( https://flutter.dev/docs/deployment/android#build-an-apk).
 
 
 
