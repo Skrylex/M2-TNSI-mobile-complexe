@@ -2,6 +2,8 @@
 
 ![PokéCenter](/images/market_center.png)
 
+<div style="text-align:center"><img src="/images/market_center.png" /></div>
+
 ## Introduction
 
 Dans le cadre de ce projet, nous avons réalisé une application Flutter de gestion d'équipe Pokémon. 
